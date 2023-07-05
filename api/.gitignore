@@ -1,2 +1,4 @@
 node_modules
 .env
+id_admin
+id_admin.pub
