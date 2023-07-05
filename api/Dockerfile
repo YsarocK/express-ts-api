@@ -11,9 +11,4 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-<<<<<<< Updated upstream
 EXPOSE 3000
-CMD [ "npm", "run", "start" ]
-=======
-EXPOSE 3000
->>>>>>> Stashed changes
