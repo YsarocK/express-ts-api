@@ -18,3 +18,16 @@ services:
     ports:
       - '8080:3000'
     command: npm run dev
+  express-api-ts-mariadb:
+    image: "mariadb:10.6"
+    container_name: "express-api-ts-mariadb"
+    volumes:
+      - "._mysql_data_dir/:/var/lib/mysql"
+    ports:
+      - "3307:3306"
+    environment:
+      - MARIADB_USER
+      - MARIADB_PASSWORD
+      - MARIADB_DATABASE
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=true
+    restart: always
