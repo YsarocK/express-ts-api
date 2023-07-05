@@ -1,14 +1,15 @@
 version: "3.8"
 services:
   api:
-    build:
-      context: ./api
-      dockerfile: Dockerfile
+    build: ./api
     ports:
       - 3000:3000
     volumes:
-      - ./api/:/usr/src/app
-    command: npm run start
+      - ./api/:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: "development"
+    command: npm run dev
 
   frontend:
     build: ./frontend
