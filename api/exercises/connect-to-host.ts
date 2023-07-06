@@ -3,18 +3,16 @@ import { NodeSSH } from "node-ssh";
 
 export default async function(session: NodeSSH): Promise<ExerciceResultType> {
   const response: ExerciceResultType = {
-    name: 'user-folder-exist',
+    name: 'connect-to-host',
     passed: false,
   }
 
   try {
     // All tests steps (commands to execute, verification... etc... should be here)
-    const FOLDER_TO_FIND = 'snap'
-    const command = await session.execCommand(`ls`)
-    if (command.stdout.includes(` ${FOLDER_TO_FIND} `)) {
+    if(session.isConnected()) {
       response.passed = true
     } else {
-      throw new SyntaxError(`${FOLDER_TO_FIND} folder not found`)
+      throw new SyntaxError(`Cannot connect to host`)
     }
   } catch (err: any) {
     response.error = err.message
