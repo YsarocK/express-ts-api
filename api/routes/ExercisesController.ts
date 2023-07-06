@@ -3,7 +3,7 @@ import { session } from "../utils/ssh";
 import userFolderExist from "../exercises/user-folder-exist";
 import connectToHost from "../exercises/connect-to-host";
 
-const testsSteps = [
+const TESTS_STEPS = [
   userFolderExist,
   connectToHost
 ]
@@ -13,7 +13,7 @@ ExercisesController.post('/verify', async function(req, res) {
   const getResults = async () => {
     const results = await session(req.body.host, req.body.username)
       .then((el) => {
-        return testsSteps.map(async (test) => {
+        return TESTS_STEPS.map(async (test) => {
           return await test(el);
         });
       })

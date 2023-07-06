@@ -16,7 +16,7 @@ const express_1 = require("express");
 const ssh_1 = require("../utils/ssh");
 const user_folder_exist_1 = __importDefault(require("../exercises/user-folder-exist"));
 const connect_to_host_1 = __importDefault(require("../exercises/connect-to-host"));
-const testsSteps = [
+const TESTS_STEPS = [
     user_folder_exist_1.default,
     connect_to_host_1.default
 ];
@@ -26,7 +26,7 @@ ExercisesController.post('/verify', function (req, res) {
         const getResults = () => __awaiter(this, void 0, void 0, function* () {
             const results = yield (0, ssh_1.session)(req.body.host, req.body.username)
                 .then((el) => {
-                return testsSteps.map((test) => __awaiter(this, void 0, void 0, function* () {
+                return TESTS_STEPS.map((test) => __awaiter(this, void 0, void 0, function* () {
                     return yield test(el);
                 }));
             })
