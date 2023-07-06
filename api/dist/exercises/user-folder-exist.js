@@ -9,6 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+
+ Vérifie si un dossier utilisateur existe via une session SSH.
+ @param session - La session SSH utilisée pour la connexion.
+ @returns Une promesse résolue avec un objet de type ExerciceResultType indiquant si le dossier existe.
+ */
 function default_1(session) {
     return __awaiter(this, void 0, void 0, function* () {
         const response = {
