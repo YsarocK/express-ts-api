@@ -13,11 +13,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const ssh_connexion_1 = __importDefault(require("../exercices/ssh-connexion"));
+const ssh_connexion_1 = __importDefault(require("../exercises/ssh-connexion"));
+const tests = [
+    ssh_connexion_1.default,
+    ssh_connexion_1.default,
+    ssh_connexion_1.default,
+];
 const ExercisesController = (0, express_1.Router)();
 ExercisesController.post('/verify', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        res.send(yield (0, ssh_connexion_1.default)(req.body.host, req.body.username));
+        let score = 0;
+        let error = '';
+        for (let index = 0; index < 1; index++) {
+            try {
+                yield tests[index](req.body.host, req.body.username);
+                score++;
+            }
+            catch (err) {
+                error = err;
+                return;
+            }
+        }
+        res.json({
+            score: `${score} / 10`,
+            error: error
+        });
     });
 });
 exports.default = ExercisesController;
