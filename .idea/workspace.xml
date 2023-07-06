@@ -5,16 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d4bc6a2-0501-473b-a3e5-8856f1cf036d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/layouts/default.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/pages/index.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/uno.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/dist/exercises/user-folder-exist.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/dist/exercises/user-folder-exist.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/exercises/user-folder-exist.ts" beforeDir="false" afterPath="$PROJECT_DIR$/api/exercises/user-folder-exist.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/app.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/nuxt.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/nuxt.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/projet-api.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Changes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Changes/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +69,7 @@
       <workItem from="1688459720920" duration="52000" />
       <workItem from="1688546700282" duration="1922000" />
       <workItem from="1688549120988" duration="9386000" />
-      <workItem from="1688659278688" duration="5447000" />
+      <workItem from="1688659278688" duration="5485000" />
     </task>
     <servers />
   </component>
