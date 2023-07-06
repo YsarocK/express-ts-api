@@ -22,7 +22,6 @@ function default_1(session) {
             passed: false,
         };
         try {
-            // All tests steps (commands to execute, verification... etc... should be here)
             const FOLDER_TO_FIND = 'snap';
             const command = yield session.execCommand(`ls`);
             if (command.stdout.includes(` ${FOLDER_TO_FIND} `)) {

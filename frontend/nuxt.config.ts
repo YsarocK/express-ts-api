@@ -1,11 +1,18 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    vite: {
-        server: {
-            hmr: {
-                protocol: 'ws',
-                host: 'localhost'
-            }
-        }
+  vite: {
+    server: {
+      hmr: {
+        protocol: 'ws',
+        host: 'localhost'
+      }
     }
+  },
+  runtimeConfig: {
+    public: {
+      apiURL: process.env.API_URL
+    }
+  },
+  modules: [
+    '@unocss/nuxt'
+  ]
 })
