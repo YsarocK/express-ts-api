@@ -3,4 +3,4 @@ import { verifyExercise } from 'controllers/exercise.controller';
 
 export const exerciseRouter = express.Router();
 
-exerciseRouter.route('/:id/verify').get(verifyExercise);
+exerciseRouter.route('/verify').post(verifyExercise);
