@@ -1,5 +1,6 @@
 import { ExerciseTypes } from 'types';
-import { connectToHost, session, userFolderExist } from 'utils';
+import { session } from 'utils';
+import { connectToHost, userFolderExist } from 'utils/exercises'
 
 const TESTS_STEPS = [userFolderExist, connectToHost];
 
