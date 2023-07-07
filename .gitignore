@@ -1,0 +1,5 @@
+# DS Store files
+.DS_Store
+
+# MySQL
+._mysql_data_dir
