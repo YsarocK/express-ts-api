@@ -105,8 +105,8 @@ build
 .tern-port
 
 # Keys
-id_admin
-id_admin.pub
+.id_admin
+.id_admin.pub
 
 # Idea
 .idea
