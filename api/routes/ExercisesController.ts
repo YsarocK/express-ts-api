@@ -10,8 +10,9 @@ const TESTS_STEPS = [
 
 const ExercisesController = Router();
 ExercisesController.post('/verify', async function(req, res) {
+  const { host, username } = req.body;
   const getResults = async () => {
-    const results = await session(req.body.host, req.body.username)
+    const results = await session(host, username)
       .then((el) => {
         return TESTS_STEPS.map(async (test) => {
           return await test(el);
@@ -24,6 +25,8 @@ ExercisesController.post('/verify', async function(req, res) {
     const resolvedResults = Promise.all(results)
     return resolvedResults;
   };
+
+  console.log(`${host}:${username}`)
 
   const results = await getResults();
 
