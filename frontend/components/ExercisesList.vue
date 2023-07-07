@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-const { data: exercises, error, refresh } = await useAsyncData('exercises', async (app) => {
+const { data: exercises, error, refresh } = await useAsyncData('exercises', async () => {
   const { apiEndpoint } = useRuntimeConfig().public
   const res = await fetch(
     `${apiEndpoint}/exercises/verify`,
@@ -25,4 +25,5 @@ const { data: exercises, error, refresh } = await useAsyncData('exercises', asyn
     })
   return await res.json()
 })
+
 </script>

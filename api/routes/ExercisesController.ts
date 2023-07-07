@@ -26,7 +26,7 @@ ExercisesController.post('/verify', async function(req, res) {
     return resolvedResults;
   };
 
-  console.log(`${host}:${username}`)
+  console.log(`Request for ${host}:${username}`)
 
   const results = await getResults();
 
