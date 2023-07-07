@@ -1,0 +1,9 @@
+// Reset nuxt-icon package broken styles
+.nuxt-icon {
+  display: block;
+
+  svg {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}

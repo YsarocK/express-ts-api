@@ -6,3 +6,5 @@
 
 # MySQL
 ._mysql_data_dir
+
+.idea

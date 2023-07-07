@@ -14,6 +14,10 @@
   "devDependencies": {
     "@types/node": "^18",
     "@unocss/nuxt": "^0.53.4",
-    "nuxt": "^3.4.2"
+    "nuxt": "^3.4.2",
+    "sass": "^1.63.6"
+  },
+  "dependencies": {
+    "nuxt-icons": "^3.2.1"
   }
 }
