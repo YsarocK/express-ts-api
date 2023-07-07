@@ -2,7 +2,6 @@ import bodyParser from 'body-parser';
 import cors, { CorsOptions } from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-
 import { exerciseRouter, userRouter } from 'routes';
 
 const app = express();

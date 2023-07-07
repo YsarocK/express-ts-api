@@ -7,8 +7,9 @@
   "semi": true,
   "importOrder": [
     "^controllers/(.*)$",
-    "^exercices/(.*)$",
+    "^databases/(.*)$",
     "^middlewares/(.*)$",
+    "^models/(.*)$",
     "^routes/(.*)$",
     "^services/(.*)$",
     "^types/(.*)$",
