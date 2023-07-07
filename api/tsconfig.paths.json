@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "controllers": ["controllers"],
+      "excercises": ["excercises"],
+      "middlewares": ["middlewares"],
+      "routes": ["routes"],
+      "services": ["services"],
+      "types": ["types"],
+      "utils": ["utils"]
+    }
+  }
+}
