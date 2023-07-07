@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiURL: process.env.API_URL
+      apiEndpoint: process.env.API_ENDPOINT
     }
   },
   modules: [
