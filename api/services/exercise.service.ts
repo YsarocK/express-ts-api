@@ -1,10 +1,10 @@
 import { ExerciseTypes } from 'types';
 import { session } from 'utils';
-import { connectToHost, userFolderExist } from 'utils/exercises'
+import { connectToHost, userFolderExist } from 'utils/exercises';
 
 const TESTS_STEPS = [userFolderExist, connectToHost];
 
-export const verifyExerciseService = async ({ id, host, username }: ExerciseTypes.Verify.Props) => {
+export const verifyExerciseService = async ({ host, username }: ExerciseTypes.Verify.Props) => {
   const results = await session(host, username)
     .then(async (el) => {
       const map = []
