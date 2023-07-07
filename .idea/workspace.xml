@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e08809a7-5fee-41fc-a5e0-4b7f6b3d4e71" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/api/id_admin-1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/id_admin-1.pub" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/utils/ssh.ts" beforeDir="false" afterPath="$PROJECT_DIR$/api/utils/ssh.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "feature/setup-front",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "ts.external.directory.path": "/Users/etienne/Documents/HETIC/projet-api/api/node_modules/typescript/lib"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <servers />
+  </component>
+</project>
