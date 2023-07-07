@@ -1,6 +1,9 @@
 {
-  "name": "nuxt-app",
-  "private": true,
+  "name": "challenge-front",
+  "description": "Front for the challenge",
+  "author": "Sami Lafrance, Paul Cotogno, Etienne Moureton and Pierre Keller",
+  "version": "1.0.0",
+  "license": "MIT",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -10,6 +13,11 @@
   },
   "devDependencies": {
     "@types/node": "^18",
-    "nuxt": "^3.4.2"
+    "@unocss/nuxt": "^0.53.4",
+    "nuxt": "^3.4.2",
+    "sass": "^1.63.6"
+  },
+  "dependencies": {
+    "nuxt-icons": "^3.2.1"
   }
 }

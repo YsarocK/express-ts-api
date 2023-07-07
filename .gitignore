@@ -1,0 +1,10 @@
+# DS Store files
+.DS_Store
+
+# Idea
+.idea
+
+# MySQL
+._mysql_data_dir
+
+.idea
