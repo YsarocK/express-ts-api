@@ -7,7 +7,6 @@ export namespace ExerciseTypes {
 
   export namespace Verify {
     export interface Props {
-      id: string;
       host: string;
       username: string;
     }
