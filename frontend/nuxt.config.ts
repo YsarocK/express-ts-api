@@ -15,6 +15,10 @@ export default defineNuxtConfig({
     }
   },
   modules: [
-    '@unocss/nuxt'
-  ]
+    '@unocss/nuxt',
+    'nuxt-icons'
+  ],
+  css: [
+    'assets/styles/main.scss',
+  ],
 })
