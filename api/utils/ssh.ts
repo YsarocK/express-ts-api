@@ -6,7 +6,7 @@ const session = async (host: string, username: string) => {
   return await ssh.connect({
     host: host,
     username: username,
-    privateKeyPath: resolve(`./${process.env.SSH_PRIVATE_KEY_NAME}`)
+    privateKeyPath: resolve(`./${process.env.SSH_PRIVATE_KEY_PATH}`)
   })
 }
 
