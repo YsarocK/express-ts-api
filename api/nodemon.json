@@ -2,6 +2,5 @@
   "watch": [],
   "ext": ".ts,.js,.json",
   "ignore": [],
-  "exec": "ts-node -r tsconfig-paths/register server.ts"
-  // "exec": "concurrently \"npx tsc --watch\" \"nodemon -q ./build/server.js\""
+  "exec": "concurrently \"npx tsc --watch\" \"npm start\""
 }
