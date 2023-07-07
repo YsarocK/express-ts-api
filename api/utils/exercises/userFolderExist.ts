@@ -9,7 +9,9 @@ import { NodeSSH } from 'node-ssh';
  */
 export const userFolderExist = async (session: NodeSSH): Promise<ExerciseTypes.Result> => {
   const response: ExerciseTypes.Result = {
-    name: 'user-folder-exist',
+    slug: 'user-folder-exist',
+    title: 'Dossier utilisateur',
+    description: `Un dossier nommé "snap" doit exister dans le dossier de l'utilisateur.`,
     passed: false,
   };
 

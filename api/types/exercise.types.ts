@@ -1,6 +1,8 @@
 export namespace ExerciseTypes {
   export interface Result {
-    name: string;
+    slug: string;
+    title: string;
+    description: string;
     passed: boolean;
     error?: string;
   }

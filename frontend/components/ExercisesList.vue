@@ -7,8 +7,9 @@
       <div v-else class="bg-red-100 p-2 w-10 h-10 rounded-md flex">
         <nuxt-icon name="close" class="text-red-400 text-md w-full h-full m-auto" />
       </div>
-      <div>
-        <p>{{ exercise.name }}</p>
+      <div class="flex flex-col gap-1">
+        <p class="text-xl">{{ exercise.title }}</p>
+        <p class="text-sm opacity-80">{{ exercise.description }}</p>
       </div>
     </div>
     <div v-else>

@@ -9,7 +9,9 @@ import { NodeSSH } from 'node-ssh';
  */
 export const connectToHost = async (session: NodeSSH): Promise<ExerciseTypes.Result> => {
   const response: ExerciseTypes.Result = {
-    name: 'connect-to-host',
+    slug: 'connect-to-host',
+    title: 'Ajout de la clé SSH',
+    description: `Il doit être possible de se connecter à l'hôte distant. Pour cela, il faut ajouter la clé SSH de l'hôte distant à la liste des clés connues.`,
     passed: false,
   };
 
