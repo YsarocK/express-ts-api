@@ -18,6 +18,7 @@ services:
       - /root/node_modules
     ports:
       - 8080:3000
+      - 24678:24678
     command: npm run dev
   express-api-ts-mariadb:
     image: mariadb:10.6
