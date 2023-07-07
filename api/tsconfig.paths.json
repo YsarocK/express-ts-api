@@ -3,8 +3,9 @@
     "baseUrl": ".",
     "paths": {
       "controllers": ["controllers"],
-      "excercises": ["excercises"],
+      "databases": ["databases"],
       "middlewares": ["middlewares"],
+      "models": ["models"],
       "routes": ["routes"],
       "services": ["services"],
       "types": ["types"],
