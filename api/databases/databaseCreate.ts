@@ -1,9 +1,10 @@
 import { sequelize } from './databaseAuth';
+import '../models';
 
 sequelize
-  .sync({ force: true })
+  .sync({ force: false })
   .then((result) => {
-    console.log(result);
+    console.log('result');
   })
   .catch((err) => {
     console.log(err);

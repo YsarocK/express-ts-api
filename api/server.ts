@@ -3,6 +3,7 @@ import cors, { CorsOptions } from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import { exerciseRouter, userRouter } from 'routes';
+import './databases/databaseCreate';
 
 const app = express();
 
