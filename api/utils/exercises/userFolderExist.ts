@@ -8,12 +8,17 @@ import { NodeSSH } from 'node-ssh';
  @returns Une promesse résolue avec un objet de type ExerciseTypes indiquant si le dossier existe.
  */
 export const userFolderExist = async (session: NodeSSH): Promise<ExerciseTypes.Result> => {
-  const response: ExerciseTypes.Result = {
+  const META: ExerciseTypes.Meta = {
     slug: 'user-folder-exist',
     title: 'Dossier utilisateur',
     description: `Un dossier nommé "snap" doit exister dans le dossier de l'utilisateur.`,
-    passed: false,
+    points: 2,
   };
+
+  const response: ExerciseTypes.Result = {
+    ...META,
+    passed: false,
+  }
 
   try {
     const FOLDER_TO_FIND = 'snap';

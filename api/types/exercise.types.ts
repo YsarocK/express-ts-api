@@ -1,10 +1,14 @@
 export namespace ExerciseTypes {
-  export interface Result {
+  export interface Result extends Meta {
+    passed: boolean;
+    error?: string;
+  }
+
+  export interface Meta {
     slug: string;
     title: string;
     description: string;
-    passed: boolean;
-    error?: string;
+    points: number;
   }
 
   export namespace Verify {
