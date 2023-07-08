@@ -1,12 +1,10 @@
 <template>
-  <div class="w-screen h-screen flex flex-col justify-center items-center">
-    <div class="w-full max-w-2xl flex flex-col gap-10">
-      <div>
-        <p class="text-md text-slate-500">Score : <span>{{ exercises?.score }} / 20</span></p>
-      </div>
-      <exercises-list :exercises="exercises" />
-      <button class="btn">Refresh</button>
+  <div class="w-full max-w-2xl flex flex-col gap-10">
+    <div>
+      <p class="text-md text-slate-500">Score : <span>{{ exercises?.score }} / 20</span></p>
     </div>
+    <exercises-list :exercises="exercises" />
+    <button class="btn">Refresh</button>
   </div>
 </template>
 
@@ -22,6 +20,7 @@ const {
   error,
 } = await useAsyncData('exercises', async () => {
   const { apiEndpoint } = useRuntimeConfig().public;
+
   const res = await fetch(`${apiEndpoint}/exercises/verify`, {
     method: 'POST',
     headers: {

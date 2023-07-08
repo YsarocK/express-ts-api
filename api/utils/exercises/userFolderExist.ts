@@ -23,7 +23,8 @@ export const userFolderExist = async (session: NodeSSH): Promise<ExerciseTypes.R
   try {
     const FOLDER_TO_FIND = 'snap';
     const command = await session.execCommand(`ls`);
-    if (command.stdout.includes(` ${FOLDER_TO_FIND} `)) {
+    console.log(command.stdout)
+    if (command.stdout.includes(`${FOLDER_TO_FIND}`)) {
       response.passed = true;
     } else {
       throw new SyntaxError(`${FOLDER_TO_FIND} folder not found`);
