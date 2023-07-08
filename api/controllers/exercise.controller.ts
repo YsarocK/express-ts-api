@@ -13,7 +13,7 @@ export const verifyExercise = async (req: Request, res: Response) => {
   return res.status(200).json({
     success: true,
     data: {
-      score: exercises.filter((el) => el.passed).length,
+      score: exercises.filter((el) => el.passed).reduce((acc, objet) => acc + objet.points, 0),
       tests: exercises,
     },
   });
