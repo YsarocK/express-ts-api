@@ -8,10 +8,17 @@ import { NodeSSH } from 'node-ssh';
  @returns Une promesse résolue avec un objet de type ExerciceResultType contenant le résultat de la connexion.
  */
 export const connectToHost = async (session: NodeSSH): Promise<ExerciseTypes.Result> => {
-  const response: ExerciseTypes.Result = {
-    name: 'connect-to-host',
-    passed: false,
+  const META: ExerciseTypes.Meta = {
+    slug: 'connect-to-host',
+    title: 'Ajout de la clé SSH',
+    description: `Il doit être possible de se connecter à l'hôte distant. Pour cela, il faut ajouter la clé SSH de l'hôte distant à la liste des clés connues.`,
+    points: 1,
   };
+
+  const response: ExerciseTypes.Result = {
+    ...META,
+    passed: false,
+  }
 
   try {
     // All tests steps (commands to execute, verification... etc... should be here)
