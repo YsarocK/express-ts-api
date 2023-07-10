@@ -8,6 +8,10 @@ export const User = sequelize.define('User', {
         autoIncrement: true,
         primaryKey: true
     },
+    user_id: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
