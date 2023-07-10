@@ -2,7 +2,7 @@ import {Admin} from 'models/admin'
 import bcrypt from 'bcrypt'
 import {generateRandomString, generateToken} from 'utils';
 
-class AdminService {
+export class AdminService {
     static async generateAdmin(email: string, password: string): Promise<{ user: object; token: string } | false> {
         if (email === null || password === null) {
             return false;
