@@ -1,6 +1,6 @@
 import express from 'express';
-import { getUserMagicLink } from 'controllers/user.controller';
+import { sendUserMagicLink } from 'controllers/user.controller';
 
 export const userRouter = express.Router();
 
-userRouter.route('/:id/link').post(getUserMagicLink);
+userRouter.route('/:session_id/magic').post(sendUserMagicLink);
