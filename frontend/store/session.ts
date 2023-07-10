@@ -4,7 +4,7 @@ export const useSessionStore = defineStore('session', () => {
   const session = ref({
     ssh: {
       host: '163.172.174.171',
-      username: 'root'
+      username: 'chucknrris'
     }
   })
 
