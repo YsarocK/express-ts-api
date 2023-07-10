@@ -9,6 +9,8 @@
 </template>
 
 <script setup lang="ts">
+import ApiService from "../service/api";
+
 const { $api } = useNuxtApp()
 
 const exercises = ref()
