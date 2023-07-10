@@ -10,11 +10,4 @@ export namespace ExerciseTypes {
     description: string;
     points: number;
   }
-
-  export namespace REspin {
-    export interface Props {
-      host: string;
-      username: string;
-    }
-  }
 }

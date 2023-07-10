@@ -32,10 +32,10 @@ const form = ref({
 })
 
 useHead({
-  title: session
+  title: session as string
 })
 
-const handleSubmit = (e) => {
+const handleSubmit = (e: Event) => {
   e.preventDefault()
   console.log(form.value)
   // Vérifier la connexion SSH et throw une error si ça ne fonctionne pas
