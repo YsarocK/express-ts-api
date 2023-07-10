@@ -26,7 +26,7 @@ class ApiService {
     const json: ApiResponsesTypes.Verify = await res.json()
 
     if (!json.success) {
-      throw new Error('Cannot fetch exercises');
+      return new Error('Impossible de se connecter au serveur');
     }
 
     return json.data;

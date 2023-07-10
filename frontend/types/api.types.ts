@@ -1,11 +1,13 @@
 import { ExerciseTypes } from "./exercise.types";
 
 export namespace ApiResponsesTypes {
-  export interface Verify {
+  export interface Response<T> {
     success: boolean;
-    data: {
-      score: number;
-      tests: Array<ExerciseTypes.Result>
-    }
+    data: T;
   }
+
+  export interface Verify extends Response<{
+    score: boolean
+    tests: ExerciseTypes.Result;
+  }> {}
 }

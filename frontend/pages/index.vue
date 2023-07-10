@@ -9,13 +9,14 @@
 </template>
 
 <script setup lang="ts">
-import ApiService from "../service/api";
+import { ApiResponsesTypes } from "../types";
 
 const { $api } = useNuxtApp()
 
-const exercises = ref()
+const exercises: Ref<undefined | ApiResponsesTypes.Verify> = ref(undefined)
 
 onMounted(async () => {
-  exercises.value = await $api.verifyExercises()
+  exercises.value = (await $api.verifyExercises())
+  console.log(exercises.value)
 })
 </script>
