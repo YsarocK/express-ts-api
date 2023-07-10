@@ -7,9 +7,6 @@ export class UserService {
             return false;
         }
 
-        const user_id = generateRandomString(12);
-        const token = generateToken(user_id);
-
         const user = await User.create({
             user_id: user_id,
             email: email,
@@ -39,7 +36,5 @@ export class UserService {
         if (user_id === null) {
             return false
         }
-
-        return generateToken(user_id);
     }
 }
