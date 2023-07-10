@@ -1,5 +1,5 @@
-import { Sequelize, DataTypes } from 'sequelize';
-import { sequelize } from '../databases/databaseAuth';
+import { DataTypes } from 'sequelize';
+import { sequelize } from 'databases';
 
 export const User = sequelize.define('User', {
     //.
@@ -17,14 +17,6 @@ export const User = sequelize.define('User', {
         allowNull: false,
     },
     lastname: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    server_ip: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    server_user: {
         type: DataTypes.STRING,
         allowNull: false,
     },
