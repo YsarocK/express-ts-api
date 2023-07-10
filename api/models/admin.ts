@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../databases/databaseAuth';
+import { sequelize } from 'databases';
 
 export const Admin = sequelize.define('Admin', {
     //.
@@ -8,6 +8,11 @@ export const Admin = sequelize.define('Admin', {
         autoIncrement: true,
         primaryKey: true
     },
+    user_id: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+
     email: {
         type: DataTypes.STRING,
         allowNull: false,

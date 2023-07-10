@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../databases/databaseAuth';
+import { sequelize } from 'databases';
 
 export const Session = sequelize.define('Session', {
     //.
