@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes } from 'sequelize';
+import { DataTypes } from 'sequelize';
 import { sequelize } from '../databases/databaseAuth';
 import { User } from './user'
 import { Session } from './session'
