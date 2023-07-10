@@ -18,7 +18,7 @@ export const connectToHost = async (session: NodeSSH): Promise<ExerciseTypes.Res
   const response: ExerciseTypes.Result = {
     ...META,
     passed: false,
-  }
+  };
 
   try {
     // All tests steps (commands to execute, verification... etc... should be here)
