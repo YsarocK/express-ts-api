@@ -20,7 +20,7 @@ services:
       - ./frontend/:/root
       - /root/node_modules
     ports:
-      - 8080:8080
+      - 8080:3000
     command: npm run dev
 
   express-api-ts-mariadb:
