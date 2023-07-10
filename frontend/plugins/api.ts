@@ -1,8 +1,8 @@
 import ApiService from "../service/api";
 
 export default defineNuxtPlugin(() => {
-  const { apiEndpoint } = useRuntimeConfig().public
-  const service = new ApiService('http://localhost:3000')
+  const { apiEndpointFront } = useRuntimeConfig().public
+  const service = new ApiService(apiEndpointFront)
   return {
     provide: {
       api: service
