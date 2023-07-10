@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes } from 'sequelize';
+import { DataTypes } from 'sequelize';
 import { sequelize } from '../databases/databaseAuth';
 
 export const Admin = sequelize.define('Admin', {

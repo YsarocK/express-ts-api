@@ -9,35 +9,13 @@
 </template>
 
 <script setup lang="ts">
-import { useSessionStore } from '../store/session';
-import { storeToRefs } from 'pinia';
-import type { ApiResponsesTypes } from "../types";
+import ApiService from "../service/api";
 
-const { user } = storeToRefs(useSessionStore());
+const { $api } = useNuxtApp()
 
-const {
-  data: exercises,
-  error,
-} = await useAsyncData('exercises', async () => {
-  const { apiEndpoint } = useRuntimeConfig().public;
+const exercises = ref()
 
-  const res = await fetch(`${apiEndpoint}/exercises/verify`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      host: user.value.ssh.host,
-      username: user.value.ssh.username,
-    }),
-  });
-
-  const json: ApiResponsesTypes.Verify = await res.json()
-
-  if (!json.success) {
-    throw new Error(json.error);
-  }
-
-  return json.data;
-});
+onMounted(async () => {
+  exercises.value = await $api.verifyExercises()
+})
 </script>
