@@ -2,10 +2,10 @@ FROM node:18-alpine
 
 WORKDIR /root
 
-COPY package.json ./
+COPY package.json .
 
 RUN npm i
 
-COPY . ./
+COPY . .
 
 ENV PATH ./node_modules/.bin/:$PATH
