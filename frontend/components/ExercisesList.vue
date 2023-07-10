@@ -34,6 +34,7 @@
         <p class="text-md leading-none exercises-list__card__content__title">{{ exercise.title }}</p>
         <p class="text-sm leading-none exercises-list__card__content__points text-slate-400">{{ exercise.points }} point{{ exercise.points > 1 ? 's' : '' }}</p>
         <p class="text-sm opacity-80 leading-normal exercises-list__card__content__description text-slate-600">{{ exercise.description }}</p>
+        <p class="p-3 bg-blue-50 text-sm leading-normal exercises-list__card__content__help text-blue-600" v-if="exercise.help && !exercise.passed">{{ exercise.help }}</p>
         <p class="text-sm text-red-400" v-if="exercise.error">{{ exercise.error }}</p>
       </div>
     </div>
@@ -45,10 +46,6 @@
 
 <script setup lang="ts">
 const { exercises } = defineProps<{ exercises: any }>()
-
-watch(() => exercises, () => {
-  console.log(exercises)
-})
 </script>
 
 <style lang="scss">
@@ -68,6 +65,10 @@ watch(() => exercises, () => {
 
       &__description {
         grid-area: description;
+      }
+
+      &__help {
+        grid-area: help;
       }
     }
   }

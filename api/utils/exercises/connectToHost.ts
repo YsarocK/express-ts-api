@@ -7,7 +7,7 @@ import { NodeSSH } from 'node-ssh';
  @param session - La session SSH utilisée pour la connexion.
  @returns Une promesse résolue avec un objet de type ExerciceResultType contenant le résultat de la connexion.
  */
-export const connectToHost = async (session: NodeSSH): Promise<ExerciseTypes.Result> => {
+export const connectToHost = async (session: NodeSSH, ssh: { host: string, username: string }): Promise<ExerciseTypes.Result> => {
   const META: ExerciseTypes.Meta = {
     slug: 'connect-to-host',
     title: 'Ajout de la clé SSH',
