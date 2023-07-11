@@ -34,12 +34,15 @@ export const getAllSessions = async (req: Request, res: Response) => {
   })
 }
 
+
 export const getAllUsersSessionById = async (req: Request<{ session_id: string }, {}, {}, {}>, res: Response) => {
   const { session_id }: { session_id: string } = req.params;
   const users_sessions = await UserSessionService.getAllUsersSessionById(session_id)
+  const session = await SessionService.getSessionById(session_id)
 
   return res.status(200).json({
-    users_sessions: users_sessions,
+        users_sessions: users_sessions,
+        session: session
   })
 }
 
