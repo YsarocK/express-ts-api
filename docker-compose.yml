@@ -28,7 +28,7 @@ services:
       - 8080:3000
     command: npm run dev
     depends_on:
-      mariadb:
+      api:
         condition: service_healthy
 
   mariadb:
