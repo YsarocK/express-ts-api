@@ -1,11 +1,20 @@
-import { Sequelize, DataTypes } from 'sequelize';
-import { sequelize } from '../databases/databaseAuth';
+import { DataTypes, Model } from 'sequelize';
+import { sequelize } from 'databases';
+import { UUID } from 'crypto';
+
+export interface UserInterface extends Model {
+    id: UUID,
+    email: string,
+    firstname: string,
+    lastname: string,
+}
 
 export const User = sequelize.define('User', {
     //.
     id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
         primaryKey: true
     },
     email: {
@@ -17,14 +26,6 @@ export const User = sequelize.define('User', {
         allowNull: false,
     },
     lastname: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    server_ip: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    server_user: {
         type: DataTypes.STRING,
         allowNull: false,
     },

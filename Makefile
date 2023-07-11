@@ -1,8 +1,3 @@
-purify:
-	rm -rf "._mysql_data_dir"
-	cd api && rm -rf "build" && rm -rf "node_modules"
-	cd frontend && rm -rf ".npm" && rm -rf ".nuxt" && rm -rf "node_modules"
-
 install:
 	cd api && npm install && cp .env ../.env
 	cd frontend && npm install
@@ -13,3 +8,11 @@ start:
 
 stop:
 	docker compose down
+
+restart:
+	docker compose down && docker compose up -d
+
+purify:
+	rm -rf "._mysql_data_dir"
+	cd api && rm -rf "build" && rm -rf "node_modules"
+	cd frontend && rm -rf ".npm" && rm -rf ".nuxt" && rm -rf "node_modules"

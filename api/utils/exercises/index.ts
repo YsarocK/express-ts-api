@@ -1,2 +1,2 @@
-export * from './connectToHost';
 export * from './userFolderExist';
+export * from './checkNodeDirectory';

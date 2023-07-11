@@ -1,7 +1,15 @@
-import { Sequelize, DataTypes } from 'sequelize';
-import { sequelize } from '../databases/databaseAuth';
+import {DataTypes, Model} from 'sequelize';
+import { sequelize } from 'databases';
 import { User } from './user'
 import { Session } from './session'
+
+export interface UserSessionInterface extends Model{
+    id: string;
+    note: string;
+    nb_try: number;
+    ssh_ip: string;
+    ssh_user: string;
+}
 
 export const UserSession = sequelize.define('UserSession', {
     //.
@@ -12,12 +20,20 @@ export const UserSession = sequelize.define('UserSession', {
     },
     note: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
     nb_try: {
         type: DataTypes.INTEGER,
-        allowNull: true
-    }
+        allowNull: false
+    },
+    ssh_ip: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    ssh_user: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
 });
 
 User.belongsToMany(Session, { through: UserSession });

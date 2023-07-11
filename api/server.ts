@@ -4,11 +4,12 @@ import dotenv from 'dotenv';
 import express from 'express';
 import { exerciseRouter, userRouter } from 'routes';
 import './databases/databaseCreate';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
 dotenv.config();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 const whitelist = process.env.CORS?.split(',') || [];
 const corsOptions: CorsOptions = {
@@ -23,6 +24,7 @@ const corsOptions: CorsOptions = {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(cors(corsOptions));
 
 app.use('/exercises', exerciseRouter);
