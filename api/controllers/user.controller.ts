@@ -33,7 +33,7 @@ export const sendUserMagicLink = async (req: Request, res: Response) => {
     return res.status(400).json({ success: false, message: 'Session does not exist' });
   }
   */
- 
+
   let user = await UserService.getUser(body.eleve.email);
   
   if (user === false) {
@@ -88,7 +88,7 @@ export const loginUsingMagicLink = async (req: Request, res: Response) => {
     success: true,
     data: {
       user: token_decoded.data.userId,
-      redirect_url: `/${token_decoded.data.sessionId}/verify`
+      redirect_url: `/${token_decoded.data.sessionId}/exercises`
     }
   })
 }
