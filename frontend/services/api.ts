@@ -68,40 +68,63 @@ const ApiService = (apiEndpoint: string) => {
       })
   }
 
-  const loginAsAdmin = (email: string, password: string) => {
-    const res = fetch(`${apiEndpoint}/admin/login/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password
+  const admin = {
+    login: (email: string, password: string) => {
+      const res = fetch(`${apiEndpoint}/admin/login/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        })
       })
-    })
 
-    return res
-     .then(async (r) => {
-        const json = await r.json()
+      return res
+        .then(async (r) => {
+          const json = await r.json()
 
-        const tokenCookie = useCookie('token');
-        tokenCookie.value = json.data.tokens.access.token;
+          if(json.success === false) {
+            return json.success
+          }
 
-        const refreshTokenCookie = useCookie('refreshToken')
-        refreshTokenCookie.value = json.data.tokens.refresh.token;
+          const tokenCookie = useCookie('token');
+          tokenCookie.value = json.data.tokens.access.token;
 
-        return json;
+          const refreshTokenCookie = useCookie('refreshToken')
+          refreshTokenCookie.value = json.data.tokens.refresh.token;
+
+          return json;
+        })
+        .catch((err) => {
+          return new Error(err.message)
+        })
+    },
+    getSession: async (sessionId: string) => {
+      const headers = useRequestHeaders(['cookie']);
+      const res = await fetch(`${apiEndpoint}/admin/${sessionId}/users_sessions`, {
+        method: 'GET',
+        headers: {
+          ...headers,
+          'Content-Type': 'application/json',
+        },
+        credentials: "include"
       })
-      .catch((err) => {
-        return err.message
-      })
+
+      if(res.status === 403) {
+        return navigateTo('/admin/login')
+      }
+
+      return res.json()
+    }
   }
 
   return {
     verifyExercises,
     register,
     login,
-    loginAsAdmin,
+    admin,
   };
 };
 

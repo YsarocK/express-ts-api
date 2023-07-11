@@ -21,12 +21,9 @@ const form = ref({
 
 const handleSubmit = (e) => {
   e.preventDefault()
-  $api.loginAsAdmin(form.value.email, form.value.password)
-      .then(r => {
-        navigateTo('/admin')
-      })
-      .catch(e => {
-        console.log(e)
+  $api.admin.login(form.value.email, form.value.password)
+      .then(success => {
+        if(success) navigateTo('/admin')
       })
 }
 </script>

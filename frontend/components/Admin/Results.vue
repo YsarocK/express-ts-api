@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex flex-col gap-3">
+  <div class="w-full flex flex-col gap-3" v-if="results && results.length > 0">
     <div
         class="w-full grid grid-cols-12 items-center text-slate-500"
     >
@@ -22,33 +22,16 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-  session: {
-    type: String,
-    required: true
-  }
-})
+const { $api } = useNuxtApp()
 
-const results = ref([
-  {
-    user: {
-      firstname: 'John',
-      lastname: 'Doe'
-    },
-    session: {
-      score: 10,
-      nb_try: 3
-    }
-  },
-  {
-    user: {
-      firstname: 'Jane',
-      lastname: 'Doe'
-    },
-    session: {
-      score: 17,
-      nb_try: 9
-    }
-  }
-])
+const props = defineProps<{
+  session: string
+}>()
+
+const results: Ref<undefined | Array<any>> = ref(undefined)
+
+onMounted(async () => {
+  results.value = await $api.admin.getSession(props.session)
+  console.log(results.value)
+})
 </script>
