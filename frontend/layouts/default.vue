@@ -1,5 +1,5 @@
 <template>
-  <main class="font-sans w-screen h-screen flex flex-col justify-center items-center">
+  <main class="px-8 py-10 font-sans w-screen min-h-screen flex flex-col justify-center items-center">
     <nuxt-page />
   </main>
 </template>

@@ -16,7 +16,7 @@ export const checkNodeDirectory = async (session: NodeSSH): Promise<ExerciseType
   const META: ExerciseTypes.Meta = {
     slug: 'check-directory',
     title: `Récupération de l'archive de Node 18`,
-    description: `Récupérez l'archive de Node.js v18.0.0 et décompressez-la à la racine de l'utilisateur "chucknorris".`,
+    description: `Récupérez l'archive de Node.js v18.0.0 et décompressez-la à la racine de l'utilisateur "chucknorris" sous le nom "${expectedDirectoryName}".`,
     help: `Utilisez 'wget' et 'unzip'`,
     points: 5,
   };

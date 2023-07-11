@@ -85,9 +85,9 @@ export const loginUsingMagicLink = async (req: Request, res: Response) => {
   res.cookie('token', authTokens.access.token, { expires: authTokens.access.expires, httpOnly: true, sameSite: 'lax', secure: false });
   res.cookie('refresh-token', authTokens.refresh.token, { expires: authTokens.refresh.expires, httpOnly: true, sameSite: 'lax', secure: false });
 
-  const user_session = UserSessionService.getUserSessionByUserIdAndSessionId(token_decoded.data.userId, token_decoded.data.sessionId!)
-  const user = UserService.getUserById(token_decoded.data.userId)
-  const session = SessionService.getSessionById(token_decoded.data.sessionId!)
+  const user_session = await UserSessionService.getUserSessionByUserIdAndSessionId(token_decoded.data.userId, token_decoded.data.sessionId!)
+  const user = await UserService.getUserById(token_decoded.data.userId)
+  const session = await SessionService.getSessionById(token_decoded.data.sessionId!)
 
   return res.status(200).json({
     success: true,

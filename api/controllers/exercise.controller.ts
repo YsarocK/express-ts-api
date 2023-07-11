@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { verifyExerciseService } from 'services/exercise.service';
 import {UserSessionService} from "../services/usersession.service";
 import {UserService} from "services";
-
+//e
 export const verifyExercise = async (req: Request, res: Response) => {
   const { host, username } = req.body;
 
