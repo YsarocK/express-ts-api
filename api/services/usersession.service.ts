@@ -23,4 +23,13 @@ export class UserSessionService {
             }
         });
     }
+
+    static async getUserSessions(sessionId: string): Promise<UserSessionInterface[]> {
+        return await UserSession.findAll({
+            where: {
+                SessionId: sessionId
+            }
+        }) as UserSessionInterface[];
+    }
+
 }
