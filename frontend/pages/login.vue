@@ -14,9 +14,9 @@ const { $api } = useNuxtApp()
 onMounted(() => {
   $api.login(token)
       .then(r => r.json())
-      .then((r) => {
+      .then(async r => {
         console.log(r)
-        window.location.href = r.data.redirect_url
+        await navigateTo(r.data.redirect_url)
       })
       .catch((err) => {
         error.value = err.message
