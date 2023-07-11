@@ -1,22 +1,24 @@
-import {Session} from 'models';
+import {Admin, AdminInterface, Session, SessionInterface} from 'models';
+import bcrypt from "bcrypt";
 
 export class SessionService {
-    static async getSession(id: string): Promise<{ token: string } | string | false> {
-        if (id === null) {
-            return false;
-        }
+    static async generateSession(name: string): Promise<SessionInterface | false> {
+        return await Admin.create({
+            name: name,
+        }) as SessionInterface
+    }
 
+    static async getSession(id: string): Promise<SessionInterface | string | false> {
         const session = await Session.findOne({
             where: {
                 id: id,
             },
-            attributes: ['name'],
-        });
+        }) as SessionInterface;
 
         if(!session) {
             return false;
         }
 
-        return JSON.stringify(session);
+        return session;
     }
 }
