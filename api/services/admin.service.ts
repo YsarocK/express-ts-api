@@ -1,9 +1,9 @@
 import {Admin} from 'models/admin'
 import bcrypt from 'bcrypt'
-import {generateRandomString, generateToken} from 'utils';
+import {generateRandomString} from 'utils';
 
 export class AdminService {
-    static async generateAdmin(email: string, password: string): Promise<{ user: object; token: string } | false> {
+    static async generateAdmin(email: string, password: string): Promise<{ user: object } | false> {
         if (email === null || password === null) {
             return false;
         }
@@ -11,22 +11,17 @@ export class AdminService {
         const saltRounds = 10;
         const hash = bcrypt.hashSync(password, saltRounds);
 
-        const user_id = generateRandomString(12);
-        const token = generateToken(user_id);
-
         const admin = await Admin.create({
             email: email,
             password: hash,
-            user_id: user_id,
         });
 
         return {
             user: admin,
-            token: token
         };
     }
 
-    static async getAdmin(email: string, password: string): Promise<{ token: string } | string | false> {
+    static async getAdmin(email: string, password: string): Promise<{ admin: object } | string | false> {
         if (email === null || password === null) {
             return false;
         }
@@ -39,14 +34,12 @@ export class AdminService {
                 email: email,
                 password: hash,
             },
-            attributes: ['user_id'],
         });
 
-        const user_id = admin?.getDataValue('user_id') ;
-        if (user_id === null) {
+        if (admin === null) {
             return false
+        } else {
+            return {admin}
         }
-
-        return generateToken(user_id);
     }
 }
