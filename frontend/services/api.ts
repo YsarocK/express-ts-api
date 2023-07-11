@@ -49,11 +49,11 @@ const ApiService = (apiEndpoint: string) => {
         'Content-Type': 'application/json',
       },
       credentials: 'same-origin'
-    });
+    })
 
     return res
-      .then(async (r: ApiResponsesTypes.Login) => {
-        const json = await r.json()
+      .then(async (r) => {
+        const json: ApiResponsesTypes.Login = await r.json()
 
         const tokenCookie = useCookie('token');
         tokenCookie.value = json.data.tokens.access.token;
