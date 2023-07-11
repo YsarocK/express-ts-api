@@ -103,6 +103,7 @@ const ApiService = (apiEndpoint: string) => {
     },
     getSession: async (sessionId: string) => {
       const headers = useRequestHeaders(['cookie']);
+
       const res = await fetch(`${apiEndpoint}/admin/${sessionId}/users_sessions`, {
         method: 'GET',
         headers: {
@@ -112,7 +113,7 @@ const ApiService = (apiEndpoint: string) => {
         credentials: "include"
       })
 
-      if(res.status === 403) {
+      if(res.status === 403 || res.status === 500) {
         return navigateTo('/admin/login')
       }
 
