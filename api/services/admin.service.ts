@@ -37,4 +37,13 @@ export class AdminService {
             return admin
         }
     }
+
+    static async getAdminById(id: string): Promise<AdminInterface | string | false> {
+
+        return await Admin.findOne({
+            where: {
+                id: id,
+            },
+        }) as AdminInterface
+    }
 }
