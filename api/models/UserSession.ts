@@ -5,7 +5,7 @@ import { Session } from './session'
 
 export interface UserSessionInterface extends Model{
     id: string;
-    note: string;
+    note: number;
     nb_try: number;
     ssh_ip: string;
     ssh_user: string;
@@ -19,7 +19,7 @@ export const UserSession = sequelize.define('UserSession', {
         autoIncrement: true
     },
     note: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     nb_try: {

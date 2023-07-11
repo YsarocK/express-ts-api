@@ -13,13 +13,22 @@ export class UserSessionService {
         }) as UserSessionInterface;
     }
 
-    static async updateUserSession(user_id: string, note: string ): Promise<UserSessionInterface | unknown> {
+    static async updateUserSession(user_id: string, note: number ): Promise<UserSessionInterface | unknown> {
         return await UserSession.update({
             note: note,
             nb_try: sequelize.literal('nb_try + 1'),
         }, {
             where: {
                 UserId: user_id
+            }
+        });
+    }
+
+    static async getUserSessionByUserIdAndSessionId(user_id: string, session_id: string ): Promise<UserSessionInterface | unknown> {
+        return await UserSession.findOne({
+            where: {
+                UserId: user_id,
+                SessionId: session_id
             }
         });
     }

@@ -8,7 +8,7 @@ export class SessionService {
         }) as SessionInterface
     }
 
-    static async getSession(id: string): Promise<SessionInterface | string | false> {
+    static async getSessionById(id: string): Promise<SessionInterface | string | false> {
         const session = await Session.findOne({
             where: {
                 id: id,
