@@ -1,4 +1,4 @@
-import ApiService from "../service/api";
+import ApiService from "../services/api";
 
 export default defineNuxtPlugin(() => {
   const { apiEndpointFront } = useRuntimeConfig().public

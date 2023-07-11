@@ -1,7 +1,7 @@
 import type { ApiResponsesTypes } from "../types";
 import { storeToRefs } from "pinia";
 import { useSessionStore } from "../store/session";
-import { UserTypes } from "../types";
+import { FormTypes } from "../types";
 
 const ApiService = (apiEndpoint: string) => {
   const { store } = storeToRefs(useSessionStore());
@@ -30,7 +30,7 @@ const ApiService = (apiEndpoint: string) => {
     return json.data;
   };
 
-  const register = async (sessionId: string, user: UserTypes.Register) => {
+  const register = async (sessionId: string, user: FormTypes.Register) => {
     return fetch(`${apiEndpoint}/users/${sessionId}/register`, {
       method: 'POST',
       headers: {
