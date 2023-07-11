@@ -50,14 +50,16 @@ const ApiService = (apiEndpoint: string) => {
     });
 
     return res
-      .then((r: ApiResponsesTypes.Login) => {
+      .then(async (r: ApiResponsesTypes.Login) => {
+        const json = await r.json()
+
         const tokenCookie = useCookie('token');
-        tokenCookie.value = r.data.tokens.access.token;
+        tokenCookie.value = json.data.tokens.access.token;
 
         const refreshTokenCookie = useCookie('refreshToken')
-        refreshTokenCookie.value = r.data.tokens.refresh.token;
+        refreshTokenCookie.value = json.data.tokens.refresh.token;
 
-        return r.json();
+        return json;
       })
       .catch((err) => {
         return err.message
