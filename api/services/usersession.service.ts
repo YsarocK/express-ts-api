@@ -1,6 +1,5 @@
-import {UserSession, UserSessionInterface} from 'models';
+import {User, UserSession, UserSessionInterface} from 'models';
 import {sequelize} from "databases";
-import {getAllUsersSessionById} from "../controllers/admin.controller";
 
 export class UserSessionService {
     static async generateUserSession(ssh_ip: string, ssh_user: string, UserId: string, SessionId: string): Promise<UserSessionInterface> {
@@ -38,7 +37,10 @@ export class UserSessionService {
         return await UserSession.findAll({
             where: {
                 SessionId: session_id
-            }
+            },
+            include: [
+                { model: User }
+            ]
         });
     }
 }

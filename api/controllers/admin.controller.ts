@@ -8,9 +8,7 @@ import { AdminInterface } from 'models';
 export const createSession = async (req: Request<{}, {}, { name: string }, {}>, res: Response) => {
   const { name }: { name: string } = req.body;
 
-  console.log(name)
-
-  const session = await SessionService.generateSession(name)
+    const session = await SessionService.generateSession(name)
 
   return res.status(200).json({
     session: session,
@@ -36,12 +34,15 @@ export const getAllSessions = async (req: Request, res: Response) => {
   })
 }
 
+
 export const getAllUsersSessionById = async (req: Request<{ session_id: string }, {}, {}, {}>, res: Response) => {
   const { session_id }: { session_id: string } = req.params;
   const users_sessions = await UserSessionService.getAllUsersSessionById(session_id)
+  const session = await SessionService.getSessionById(session_id)
 
   return res.status(200).json({
-    users_sessions: users_sessions,
+        users_sessions: users_sessions,
+        session: session
   })
 }
 
@@ -65,6 +66,7 @@ export const login = async (req: Request, res: Response) => {
 
     res.cookie('token', authTokens.access.token, { expires: authTokens.access.expires, httpOnly: true, sameSite: 'lax', secure: false });
     res.cookie('refresh-token', authTokens.refresh.token, { expires: authTokens.refresh.expires, httpOnly: true, sameSite: 'lax', secure: false });
+
 
     return res.status(200).json({
       success: true,

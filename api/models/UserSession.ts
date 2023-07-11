@@ -36,7 +36,10 @@ export const UserSession = sequelize.define('UserSession', {
     },
 });
 
-User.belongsToMany(Session, { through: UserSession });
-Session.belongsToMany(User, { through: UserSession });
+UserSession.belongsTo(User);
+UserSession.belongsTo(Session);
+
+User.hasMany(UserSession);
+Session.hasMany(UserSession);
 
 UserSession.sync()
