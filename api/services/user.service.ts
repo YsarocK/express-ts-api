@@ -1,14 +1,14 @@
 import {User} from 'models'
-import {generateRandomString, generateToken} from 'utils';
+import {generateRandomString} from 'utils';
+import {Model} from "sequelize";
 
 export class UserService {
-    static async generateUser(email: string, firstname: string, lastname: string): Promise<{ user: object; token: string } | false> {
+    static async generateUser(email: string, firstname: string, lastname: string): Promise<{ user: object } | false> {
         if (email === null) {
             return false;
         }
 
         const user = await User.create({
-            user_id: user_id,
             email: email,
             firstname: firstname,
             lastname: lastname,
@@ -16,11 +16,10 @@ export class UserService {
 
         return {
             user: user,
-            token: token
         };
     }
 
-    static async getUser(email: string): Promise<{ token: string } | string | false> {
+    static async getUser(email: string): Promise<{ user: object } | string | false> {
         if (email === null) {
             return false;
         }
@@ -29,12 +28,12 @@ export class UserService {
             where: {
                 email: email,
             },
-            attributes: ['user_id'],
         });
 
-        const user_id = user?.getDataValue('user_id');
-        if (user_id === null) {
+        if (user === null) {
             return false
+        } else {
+            return {user}
         }
     }
 }

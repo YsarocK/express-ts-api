@@ -4,15 +4,11 @@ import { sequelize } from 'databases';
 export const Admin = sequelize.define('Admin', {
     //.
     id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
         primaryKey: true
     },
-    user_id: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-
     email: {
         type: DataTypes.STRING,
         allowNull: false,
