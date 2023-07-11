@@ -8,4 +8,8 @@
 import '@unocss/reset/normalize.css'
 import '@unocss/reset/sanitize/sanitize.css'
 import '@unocss/reset/tailwind.css'
+
+onMounted(() => {
+  console.log(useCookie('token').value, useCookie('refreshToken').value);
+})
 </script>

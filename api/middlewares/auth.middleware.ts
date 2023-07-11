@@ -27,7 +27,7 @@ export const AuthAdmin = async (req: Request, res: Response, next: NextFunction)
 
     const userDoc = await JWToken.verifyToken(authToken);
 
-    if(!userDoc.data) {
+    if(!userDoc.data || !userDoc.data.userId) {
       new Error('Bad Token delivered');
     }
 
