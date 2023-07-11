@@ -30,12 +30,12 @@
           class="text-red-400 text-md w-full h-full m-auto"
         />
       </div>
-      <div class="exercises-list__card__content w-full grid gap-3">
-        <p class="text-md leading-none exercises-list__card__content__title">{{ exercise.title }}</p>
-        <p class="text-sm leading-none exercises-list__card__content__points text-slate-400">{{ exercise.points }} point{{ exercise.points > 1 ? 's' : '' }}</p>
-        <p class="text-sm opacity-80 leading-normal exercises-list__card__content__description text-slate-600">{{ exercise.description }}</p>
-        <p class="p-3 bg-blue-50 text-sm leading-normal exercises-list__card__content__help text-blue-600" v-if="exercise.help && !exercise.passed">{{ exercise.help }}</p>
-        <p class="text-sm text-red-400" v-if="exercise.error">{{ exercise.error }}</p>
+      <div class="w-full grid grid-cols-12 gap-3">
+        <p class="text-md leading-none col-span-8">{{ exercise.title }}</p>
+        <p class="text-sm leading-none text-slate-400 col-span-4 text-right">{{ exercise.points }} point{{ exercise.points > 1 ? 's' : '' }}</p>
+        <p class="text-sm opacity-80 leading-normal text-slate-600 col-span-12">{{ exercise.description }}</p>
+        <p class="rounded-sm px-3 py-2 bg-blue-50 text-sm leading-normal text-blue-600 col-span-12" v-if="exercise.help && !exercise.passed">{{ exercise.help }}</p>
+        <p class="text-sm text-red-400 col-span-12" v-if="exercise.error">{{ exercise.error }}</p>
       </div>
     </div>
     <div v-else class="w-full flex flex-col justify-center items-center red p-10 rounded-md">
@@ -47,30 +47,3 @@
 <script setup lang="ts">
 const { exercises } = defineProps<{ exercises: any }>()
 </script>
-
-<style lang="scss">
-.exercises-list {
-  &__card {
-    &__content {
-      grid-template-areas: "title points" "description description";
-      grid-template-columns: 1fr auto;
-
-      &__title {
-        grid-area: title;
-      }
-
-      &__points {
-        grid-area: points;
-      }
-
-      &__description {
-        grid-area: description;
-      }
-
-      &__help {
-        grid-area: help;
-      }
-    }
-  }
-}
-</style>
