@@ -4,6 +4,7 @@ import { UserService } from 'services';
 import { SessionService } from 'services/session.service';
 import { JWToken } from 'utils';
 import { sendMailNodemailer } from '../utils/nodemailer';
+import {UserSessionService} from "../services/usersession.service";
 
 interface Form {
   eleve: {
@@ -84,11 +85,18 @@ export const loginUsingMagicLink = async (req: Request, res: Response) => {
   res.cookie('token', authTokens.access.token, { expires: authTokens.access.expires, httpOnly: true, sameSite: 'lax', secure: false });
   res.cookie('refresh-token', authTokens.refresh.token, { expires: authTokens.refresh.expires, httpOnly: true, sameSite: 'lax', secure: false });
 
+  const user_session = UserSessionService.getUserSessionByUserIdAndSessionId(token_decoded.data.userId, token_decoded.data.sessionId!)
+  const user = UserService.getUserById(token_decoded.data.userId)
+  const session = SessionService.getSessionById(token_decoded.data.sessionId!)
+
   return res.status(200).json({
     success: true,
     data: {
-      user: token_decoded.data.userId,
-      redirect_url: `/${token_decoded.data.sessionId}/exercises`
+      user: user,
+      user_session: user_session,
+      session: session,
+      redirect_url: `/${token_decoded.data.sessionId}/exercises`,
+      tokens: authTokens
     }
   })
 }
@@ -119,7 +127,10 @@ export const refreshLoginTokens = async (req: Request, res: Response) => {
   res.cookie('refresh-token', authTokens.refresh.token, { expires: authTokens.refresh.expires, httpOnly: true, sameSite: 'lax', secure: false });
 
   return res.status(200).json({
-    success: true
+    success: true,
+    data: {
+      tokens: authTokens
+    }
   })
 }
 

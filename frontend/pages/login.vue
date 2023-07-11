@@ -16,9 +16,10 @@ onMounted(() => {
       .then(r => r.json())
       .then(async r => {
         console.log(r)
-        await navigateTo(r.data.redirect_url)
+        //await navigateTo(r.data.redirect_url)
       })
       .catch((err) => {
+        console.log(err);
         error.value = err.message
       })
 })
