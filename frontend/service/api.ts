@@ -2,7 +2,6 @@ import type { ApiResponsesTypes } from "../types";
 import { storeToRefs } from "pinia";
 import { useSessionStore } from "../store/session";
 import { UserTypes } from "../types";
-import { fetchWithCookie } from "../utils/fetchWithCookies";
 
 const ApiService = (apiEndpoint: string) => {
   const session = storeToRefs(useSessionStore()).session;
@@ -42,14 +41,6 @@ const ApiService = (apiEndpoint: string) => {
   }
 
   const login = async (token: string) => {
-    const [
-      tokenCookie,
-      refreshTokenCookie]
-      = [
-      useCookie('token'),
-      useCookie('refreshToken'),
-    ];
-
     const res = fetch(`${apiEndpoint}/users/login?jwt=${token}`, {
       method: 'GET',
       headers: {
@@ -59,19 +50,19 @@ const ApiService = (apiEndpoint: string) => {
     });
 
     return res
-      .then(r => r.json())
-      .then((r) => {
+      .then((r: ApiResponsesTypes.Login) => {
         if (r.success) {
+          const tokenCookie = useCookie('token', {
+            expires: new Date(r.data.tokens.access.expires)
+          })
           tokenCookie.value = r.data.tokens.access.token;
-          useCookie('token', {
-            expires: r.data.tokens.access.expires
+
+          const refreshTokenCookie = useCookie('refreshToken', {
+            expires: new Date(r.data.tokens.refresh.expires)
           })
           refreshTokenCookie.value = r.data.tokens.refresh.token;
-          useCookie('refreshToken', {
-            expires: r.data.tokens.refresh.expires
-          })
-          console.log(r.data)
         }
+
         return r;
       })
       .catch((err) => {
