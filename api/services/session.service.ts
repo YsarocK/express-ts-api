@@ -1,10 +1,10 @@
-import {Admin, AdminInterface, Session, SessionInterface} from 'models';
-import bcrypt from "bcrypt";
+import {Session, SessionInterface} from 'models';
 
 export class SessionService {
-    static async generateSession(name: string): Promise<SessionInterface | false> {
-        return await Admin.create({
+    static async generateSession(name: string, isActive: boolean): Promise<SessionInterface | false> {
+        return await Session.create({
             name: name,
+            isActive: isActive,
         }) as SessionInterface
     }
 
@@ -20,5 +20,19 @@ export class SessionService {
         }
 
         return session;
+    }
+
+    static async updateSession(id : string, is_active: boolean): Promise<SessionInterface | unknown> {
+        return await Session.update({
+            isActive : is_active
+        }, {
+            where: {
+                id: id
+            }
+        });
+    }
+
+    static async getAllSessions(): Promise<SessionInterface | unknown> {
+        return await Session.findAll()
     }
 }
