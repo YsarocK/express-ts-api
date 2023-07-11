@@ -4,7 +4,7 @@ import { useSessionStore } from "../store/session";
 import { UserTypes } from "../types";
 
 const ApiService = (apiEndpoint: string) => {
-  const session = storeToRefs(useSessionStore()).session;
+  const { store } = storeToRefs(useSessionStore());
 
   const verifyExercises = async () => {
     const headers = useRequestHeaders(['cookie']);
@@ -15,8 +15,8 @@ const ApiService = (apiEndpoint: string) => {
         ...headers
       },
       body: JSON.stringify({
-        host: session.value.ssh.host,
-        username: session.value.ssh.username,
+        host: store.value.user_session.ssh_ip,
+        username: store.value.user_session.ssh_user,
       }),
       credentials: 'include'
     });
@@ -51,14 +51,10 @@ const ApiService = (apiEndpoint: string) => {
 
     return res
       .then((r: ApiResponsesTypes.Login) => {
-        const tokenCookie = useCookie('token', {
-          expires: new Date(r.data.tokens.access.expires)
-        })
+        const tokenCookie = useCookie('token');
         tokenCookie.value = r.data.tokens.access.token;
 
-        const refreshTokenCookie = useCookie('refreshToken', {
-          expires: new Date(r.data.tokens.refresh.expires)
-        })
+        const refreshTokenCookie = useCookie('refreshToken')
         refreshTokenCookie.value = r.data.tokens.refresh.token;
 
         return r;
