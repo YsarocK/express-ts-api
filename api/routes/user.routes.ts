@@ -4,7 +4,7 @@ import { Auth } from 'middlewares/auth.middleware';
 
 export const userRouter = express.Router();
 
-userRouter.route('/:session_id/magic').post(sendUserMagicLink);
+userRouter.route('/:session_id/register').post(sendUserMagicLink);
 userRouter.route('/login').get(loginUsingMagicLink);
 userRouter.route('/refresh').get(refreshLoginTokens);
 userRouter.route('/interdit').get(Auth, check);

@@ -1,40 +1,32 @@
-import {User} from 'models'
-import {generateRandomString, generateToken} from 'utils';
+import {User, UserInterface} from 'models';
 
 export class UserService {
-    static async generateUser(email: string, firstname: string, lastname: string): Promise<{ user: object; token: string } | false> {
-        if (email === null) {
-            return false;
-        }
-
-        const user = await User.create({
-            user_id: user_id,
+    static async generateUser(email: string, firstname: string, lastname: string): Promise<UserInterface> {
+        return await User.create({
             email: email,
             firstname: firstname,
             lastname: lastname,
-        });
-
-        return {
-            user: user,
-            token: token
-        };
+        }) as UserInterface;
     }
 
-    static async getUser(email: string): Promise<{ token: string } | string | false> {
-        if (email === null) {
-            return false;
-        }
-
+    static async getUser(email: string): Promise<UserInterface | false> {4
         const user = await User.findOne({
             where: {
                 email: email,
             },
-            attributes: ['user_id'],
-        });
+        }) as UserInterface;
 
-        const user_id = user?.getDataValue('user_id');
-        if (user_id === null) {
+        if (user === null) {
             return false
+        } else {
+            return user;
         }
+    }
+    static async getUserById(id: string): Promise<UserInterface | false> {
+        return await User.findOne({
+            where: {
+                id: id,
+            },
+        }) as UserInterface;
     }
 }

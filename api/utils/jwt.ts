@@ -5,12 +5,22 @@ import moment from 'moment';
 
 dotenv.config();
 
+interface DataPayLoad {
+  userId: string,
+  sessionId?: string,
+  isAdmin?: boolean
+}
+
+interface PayLoad extends JwtPayload {
+  data: DataPayLoad
+}
+
 export class JWToken {
   static jwtSecret = process.env.JWT_PRIVATE_KEY as jwt.Secret;
 
-  static async generateToken(data: string, expires: moment.Moment, type: string) {
+  static async generateToken(data: DataPayLoad, expires: moment.Moment, type: string) {
     const payload = {
-      sub: data,
+      data: data,
       iat: moment().unix(),
       exp: expires.unix(),
       type,
@@ -19,22 +29,22 @@ export class JWToken {
   }
 
   static async verifyToken(token: string) {
-    return new Promise<JwtPayload>((resolve, reject) => {
+    return new Promise<PayLoad>((resolve, reject) => {
       jwt.verify(token, this.jwtSecret, (err, decoded) => {
         if (err) {
           reject(err);
         }
-        resolve(decoded as JwtPayload);
+        resolve(decoded as PayLoad);
       });
     })
   }
 
-  static async generateAuthTokens(userId: string) {
+  static async generateAuthTokens(userId: string, isAdmin?: boolean) {
     const accessTokenExpires = moment().add(process.env.ACCESS_EXPIRATION_HOURS, 'hours');
-    const accessToken = await this.generateToken(userId, accessTokenExpires, tokenTypes.ACCESS);
+    const accessToken = await this.generateToken({ userId: userId, isAdmin }, accessTokenExpires, tokenTypes.ACCESS);
 
     const refreshTokenExpires = moment().add(process.env.REFRESH_EXPIRATION_DAYS, 'days');
-    const refreshToken = await this.generateToken(userId, refreshTokenExpires, tokenTypes.REFRESH);
+    const refreshToken = await this.generateToken({ userId: userId }, refreshTokenExpires, tokenTypes.REFRESH);
 
     return {
       access: {
@@ -48,9 +58,9 @@ export class JWToken {
     };
   }
 
-  static async generateMagicToken(userId: string) {
+  static async generateMagicToken(userId: string, sessionId: string) {
     const expires = moment().add(process.env.MAGIC_EXPIRATION_MINUTES, 'minutes');
-    const verifyEmailToken = this.generateToken(userId, expires, tokenTypes.VERIFY_MAIL);
+    const verifyEmailToken = this.generateToken({userId: userId, sessionId: sessionId}, expires, tokenTypes.VERIFY_MAIL);
     return verifyEmailToken;
   }
 }

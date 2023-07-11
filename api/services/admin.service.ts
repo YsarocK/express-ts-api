@@ -1,9 +1,8 @@
-import {Admin} from 'models/admin'
+import {Admin, AdminInterface} from 'models/admin'
 import bcrypt from 'bcrypt'
-import {generateRandomString, generateToken} from 'utils';
 
 export class AdminService {
-    static async generateAdmin(email: string, password: string): Promise<{ user: object; token: string } | false> {
+    static async generateAdmin(email: string, password: string): Promise<AdminInterface | false> {
         if (email === null || password === null) {
             return false;
         }
@@ -11,22 +10,13 @@ export class AdminService {
         const saltRounds = 10;
         const hash = bcrypt.hashSync(password, saltRounds);
 
-        const user_id = generateRandomString(12);
-        const token = generateToken(user_id);
-
-        const admin = await Admin.create({
+        return await Admin.create({
             email: email,
             password: hash,
-            user_id: user_id,
-        });
-
-        return {
-            user: admin,
-            token: token
-        };
+        }) as AdminInterface
     }
 
-    static async getAdmin(email: string, password: string): Promise<{ token: string } | string | false> {
+    static async getAdmin(email: string, password: string): Promise<AdminInterface | string | false> {
         if (email === null || password === null) {
             return false;
         }
@@ -39,14 +29,21 @@ export class AdminService {
                 email: email,
                 password: hash,
             },
-            attributes: ['user_id'],
-        });
+        }) as AdminInterface
 
-        const user_id = admin?.getDataValue('user_id') ;
-        if (user_id === null) {
+        if (admin === null) {
             return false
+        } else {
+            return admin
         }
+    }
 
-        return generateToken(user_id);
+    static async getAdminById(id: string): Promise<AdminInterface | string | false> {
+
+        return await Admin.findOne({
+            where: {
+                id: id,
+            },
+        }) as AdminInterface
     }
 }

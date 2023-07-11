@@ -1,7 +1,15 @@
-import { DataTypes } from 'sequelize';
+import {DataTypes, Model} from 'sequelize';
 import { sequelize } from 'databases';
 import { User } from './user'
 import { Session } from './session'
+
+export interface UserSessionInterface extends Model{
+    id: string;
+    note: string;
+    nb_try: number;
+    ssh_ip: string;
+    ssh_user: string;
+}
 
 export const UserSession = sequelize.define('UserSession', {
     //.
