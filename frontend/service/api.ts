@@ -51,15 +51,13 @@ const ApiService = (apiEndpoint: string) => {
 
     return res
       .then((r: ApiResponsesTypes.Login) => {
-        if (r.success) {
-          const tokenCookie = useCookie('token');
-          tokenCookie.value = r.data.tokens.access.token;
+        const tokenCookie = useCookie('token');
+        tokenCookie.value = r.data.tokens.access.token;
 
-          const refreshTokenCookie = useCookie('refreshToken')
-          refreshTokenCookie.value = r.data.tokens.refresh.token;
-        }
+        const refreshTokenCookie = useCookie('refreshToken')
+        refreshTokenCookie.value = r.data.tokens.refresh.token;
 
-        return r;
+        return r.json();
       })
       .catch((err) => {
         return err.message
