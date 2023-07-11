@@ -2,9 +2,10 @@ import bodyParser from 'body-parser';
 import cors, { CorsOptions } from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import {adminRouter, exerciseRouter, userRouter} from 'routes';
+import { adminRouter, exerciseRouter, userRouter } from 'routes';
 import './databases/databaseCreate';
 import cookieParser from 'cookie-parser';
+import { morganMiddleware } from 'middlewares';
 
 const app = express();
 
@@ -26,6 +27,7 @@ const corsOptions: CorsOptions = {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(morganMiddleware);
 app.use(cors(corsOptions));
 
 app.use('/exercises', exerciseRouter);
