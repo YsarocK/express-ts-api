@@ -28,12 +28,11 @@ export const sendUserMagicLink = async (req: Request, res: Response) => {
 
   console.log(session_id, body.eleve.email);
 
-  /* const session = await SessionService.getSession(session_id);
+  const session = await SessionService.getSessionById(session_id);
 
   if(!session) {
     return res.status(400).json({ success: false, message: 'Session does not exist' });
   }
-  */
 
   let user = await UserService.getUser(body.eleve.email);
   
@@ -41,6 +40,12 @@ export const sendUserMagicLink = async (req: Request, res: Response) => {
     //return res.status(400).json({ success: false, message: 'User not found' });
     //create user
     user = await UserService.generateUser(body.eleve.email, body.eleve.prenom, body.eleve.nom);
+  }
+
+  let userSession = await UserSessionService.getUserSessionByUserIdAndSessionId(user.id, session_id);
+
+  if(!userSession) {
+    userSession = await UserSessionService.generateUserSession(body.ssh.host, body.ssh.username, user.id, session_id);
   }
 
   const mail_token = await JWToken.generateMagicToken(user.id, session_id);

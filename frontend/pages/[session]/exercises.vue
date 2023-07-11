@@ -40,6 +40,7 @@ onMounted(async () => {
 const verify = async () => {
   exercises.value ? exercises.value = undefined : null
   exercises.value = await $api.verifyExercises();
+  console.log('log', exercises.value);
   score.value = exercises.value.score
 }
 </script>
