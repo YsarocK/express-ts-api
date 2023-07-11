@@ -1,10 +1,10 @@
 import {Session, SessionInterface} from 'models';
 
 export class SessionService {
-    static async generateSession(name: string, isActive: boolean): Promise<SessionInterface | false> {
+    static async generateSession(name: string): Promise<SessionInterface | false> {
         return await Session.create({
             name: name,
-            isActive: isActive,
+            isActive: true,
         }) as SessionInterface
     }
 
