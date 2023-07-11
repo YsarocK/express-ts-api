@@ -2,20 +2,24 @@ import type { ApiResponsesTypes } from "../types";
 import { storeToRefs } from "pinia";
 import { useSessionStore } from "../store/session";
 import { UserTypes } from "../types";
+import { fetchWithCookie } from "../utils/fetchWithCookies";
 
 const ApiService = (apiEndpoint: string) => {
   const session = storeToRefs(useSessionStore()).session;
 
   const verifyExercises = async () => {
+    const headers = useRequestHeaders(['cookie']);
     const res = await fetch(`${apiEndpoint}/exercises/verify`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        ...headers
       },
       body: JSON.stringify({
         host: session.value.ssh.host,
         username: session.value.ssh.username,
       }),
+      credentials: 'include'
     });
 
     const json = await res.json();
@@ -43,6 +47,7 @@ const ApiService = (apiEndpoint: string) => {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'same-origin'
     });
   }
 
