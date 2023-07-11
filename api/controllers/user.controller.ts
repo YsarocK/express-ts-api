@@ -95,7 +95,8 @@ export const loginUsingMagicLink = async (req: Request, res: Response) => {
       user: user,
       user_session: user_session,
       session: session,
-      redirect_url: `/${token_decoded.data.sessionId}/exercises`
+      redirect_url: `/${token_decoded.data.sessionId}/exercises`,
+      tokens: authTokens
     }
   })
 }
@@ -126,7 +127,10 @@ export const refreshLoginTokens = async (req: Request, res: Response) => {
   res.cookie('refresh-token', authTokens.refresh.token, { expires: authTokens.refresh.expires, httpOnly: true, sameSite: 'lax', secure: false });
 
   return res.status(200).json({
-    success: true
+    success: true,
+    data: {
+      tokens: authTokens
+    }
   })
 }
 
