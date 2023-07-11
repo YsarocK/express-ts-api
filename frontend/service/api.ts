@@ -28,25 +28,28 @@ const ApiService = (apiEndpoint: string) => {
   };
 
   const register = async (sessionId: string, user: UserTypes.Register) => {
-    const res = await fetch(`${apiEndpoint}/users/${sessionId}/register`, {
+    return fetch(`${apiEndpoint}/users/${sessionId}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(user),
     });
+  }
 
-    const json = await res.json();
-
-    if (!json.success) {
-      return new Error('Impossible de rejoindre la session');
-    }
-
-    return json.data;
+  const login = async (token: string) => {
+    return fetch(`${apiEndpoint}/users/login?jwt=${token}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
 
   return {
     verifyExercises,
+    register,
+    login
   };
 };
 
