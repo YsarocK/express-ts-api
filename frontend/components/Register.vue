@@ -23,7 +23,11 @@
 </template>
 
 <script setup lang="ts">
-import { UserTypes } from '../types'
+import type { FormTypes } from "../types/";
+import { useSessionStore } from "../store/session";
+import { storeToRefs } from "pinia";
+
+const { store } = storeToRefs(useSessionStore())
 
 const { session } = useRoute().params
 const { $api } = useNuxtApp()
@@ -31,7 +35,7 @@ const { $api } = useNuxtApp()
 const hasApplied = ref(false)
 const error: Ref<undefined | string> = ref(undefined)
 
-const form: Ref<UserTypes.Register> = ref({
+const form: Ref<FormTypes.Register> = ref({
   eleve: {
     nom: '',
     prenom: '',
@@ -41,10 +45,6 @@ const form: Ref<UserTypes.Register> = ref({
     host: '',
     username: ''
   }
-})
-
-useHead({
-  title: session as string
 })
 
 const handleSubmit = (e: Event) => {

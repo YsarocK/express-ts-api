@@ -1,4 +1,4 @@
-export namespace UserTypes {
+export namespace FormTypes {
   export interface Register {
     eleve: {
       nom: string,

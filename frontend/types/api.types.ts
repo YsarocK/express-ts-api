@@ -8,7 +8,7 @@ export namespace ApiResponsesTypes {
   }
 
   export interface Verify extends Response<{
-    score: boolean
+    score: number;
     tests: ExerciseTypes.Result;
   }> {}
 

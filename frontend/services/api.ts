@@ -1,12 +1,14 @@
 import type { ApiResponsesTypes } from "../types";
 import { storeToRefs } from "pinia";
 import { useSessionStore } from "../store/session";
-import { UserTypes } from "../types";
+import { FormTypes } from "../types";
 
 const ApiService = (apiEndpoint: string) => {
   const { store } = storeToRefs(useSessionStore());
 
   const verifyExercises = async () => {
+    if(!store.value) throw new Error('Store is undefined');
+
     const headers = useRequestHeaders(['cookie']);
     const res = await fetch(`${apiEndpoint}/exercises/verify`, {
       method: 'POST',
@@ -27,10 +29,10 @@ const ApiService = (apiEndpoint: string) => {
       return new Error('Impossible de se connecter au serveur');
     }
 
-    return json.data;
+    return json;
   };
 
-  const register = async (sessionId: string, user: UserTypes.Register) => {
+  const register = async (sessionId: string, user: FormTypes.Register) => {
     return fetch(`${apiEndpoint}/users/${sessionId}/register`, {
       method: 'POST',
       headers: {
@@ -47,11 +49,11 @@ const ApiService = (apiEndpoint: string) => {
         'Content-Type': 'application/json',
       },
       credentials: 'same-origin'
-    });
+    })
 
     return res
-      .then(async (r: ApiResponsesTypes.Login) => {
-        const json = await r.json()
+      .then(async (r) => {
+        const json: ApiResponsesTypes.Login = await r.json()
 
         const tokenCookie = useCookie('token');
         tokenCookie.value = json.data.tokens.access.token;
@@ -66,10 +68,64 @@ const ApiService = (apiEndpoint: string) => {
       })
   }
 
+  const admin = {
+    login: (email: string, password: string) => {
+      const res = fetch(`${apiEndpoint}/admin/login/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        })
+      })
+
+      return res
+        .then(async (r) => {
+          const json = await r.json()
+
+          if(json.success === false) {
+            return json.success
+          }
+
+          const tokenCookie = useCookie('token');
+          tokenCookie.value = json.data.tokens.access.token;
+
+          const refreshTokenCookie = useCookie('refreshToken')
+          refreshTokenCookie.value = json.data.tokens.refresh.token;
+
+          return json;
+        })
+        .catch((err) => {
+          return new Error(err.message)
+        })
+    },
+    getSession: async (sessionId: string) => {
+      const headers = useRequestHeaders(['cookie']);
+
+      const res = await fetch(`${apiEndpoint}/admin/${sessionId}/users_sessions`, {
+        method: 'GET',
+        headers: {
+          ...headers,
+          'Content-Type': 'application/json',
+        },
+        credentials: "include"
+      })
+
+      if(res.status === 403 || res.status === 500) {
+        return navigateTo('/admin/login')
+      }
+
+      return res.json()
+    }
+  }
+
   return {
     verifyExercises,
     register,
-    login
+    login,
+    admin,
   };
 };
 
