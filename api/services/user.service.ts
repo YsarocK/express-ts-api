@@ -1,25 +1,17 @@
-import {User} from 'models'
-import {generateRandomString} from 'utils';
-import {Model} from "sequelize";
+import { User, UserInterface } from 'models';
 
 export class UserService {
-    static async generateUser(email: string, firstname: string, lastname: string): Promise<{ user: object } | false> {
-        if (email === null) {
-            return false;
-        }
-
+    static async generateUser(email: string, firstname: string, lastname: string): Promise<UserInterface> {
         const user = await User.create({
             email: email,
             firstname: firstname,
             lastname: lastname,
-        });
+        }) as UserInterface;
 
-        return {
-            user: user,
-        };
+        return user;
     }
 
-    static async getUser(email: string): Promise<{ user: object } | string | false> {
+    static async getUser(email: string): Promise<UserInterface | false> {
         if (email === null) {
             return false;
         }
@@ -28,12 +20,12 @@ export class UserService {
             where: {
                 email: email,
             },
-        });
+        }) as UserInterface;
 
         if (user === null) {
             return false
         } else {
-            return {user}
+            return user;
         }
     }
 }

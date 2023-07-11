@@ -8,7 +8,7 @@ dotenv.config();
 export class JWToken {
   static jwtSecret = process.env.JWT_PRIVATE_KEY as jwt.Secret;
 
-  static async generateToken(data: string, expires: moment.Moment, type: string) {
+  static async generateToken(data: string | Object, expires: moment.Moment, type: string) {
     const payload = {
       sub: data,
       iat: moment().unix(),
@@ -48,9 +48,9 @@ export class JWToken {
     };
   }
 
-  static async generateMagicToken(userId: string) {
+  static async generateMagicToken(userId: string, sessionId: string) {
     const expires = moment().add(process.env.MAGIC_EXPIRATION_MINUTES, 'minutes');
-    const verifyEmailToken = this.generateToken(userId, expires, tokenTypes.VERIFY_MAIL);
+    const verifyEmailToken = this.generateToken({userId: userId, sessionId: sessionId}, expires, tokenTypes.VERIFY_MAIL);
     return verifyEmailToken;
   }
 }

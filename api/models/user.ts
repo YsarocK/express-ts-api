@@ -1,5 +1,13 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { sequelize } from 'databases';
+import { UUID } from 'crypto';
+
+export interface UserInterface extends Model {
+    id: UUID,
+    email: string,
+    firstname: string,
+    lastname: string,
+}
 
 export const User = sequelize.define('User', {
     //.
