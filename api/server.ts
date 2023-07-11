@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import { exerciseRouter, userRouter } from 'routes';
 import './databases/databaseCreate';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
@@ -23,6 +24,7 @@ const corsOptions: CorsOptions = {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(cors(corsOptions));
 
 app.use('/exercises', exerciseRouter);

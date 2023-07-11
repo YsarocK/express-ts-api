@@ -9,6 +9,7 @@ export namespace ExerciseTypes {
     title: string;
     description: string;
     points: number;
+    help?: string;
   }
 
   export namespace Verify {
