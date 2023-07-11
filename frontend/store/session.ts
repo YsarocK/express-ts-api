@@ -7,6 +7,7 @@ export const useSessionStore = defineStore('session', () => {
       username: 'chucknorris'
     }
   })
-
   return { session }
+}, {
+  persist: true
 })

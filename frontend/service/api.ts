@@ -38,12 +38,40 @@ const ApiService = (apiEndpoint: string) => {
   }
 
   const login = async (token: string) => {
-    return fetch(`${apiEndpoint}/users/login?jwt=${token}`, {
+    const [
+      tokenCookie,
+      refreshTokenCookie]
+      = [
+      useCookie('token'),
+      useCookie('refreshToken'),
+    ];
+
+    const res = fetch(`${apiEndpoint}/users/login?jwt=${token}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     });
+
+    return res
+      .then(r => r.json())
+      .then((r) => {
+        if (r.success) {
+          tokenCookie.value = r.data.tokens.access.token;
+          useCookie('token', {
+            expires: r.data.tokens.access.expires
+          })
+          refreshTokenCookie.value = r.data.tokens.refresh.token;
+          useCookie('refreshToken', {
+            expires: r.data.tokens.refresh.expires
+          })
+          console.log(r.data)
+        }
+        return r;
+      })
+      .catch((err) => {
+        return err.message
+      })
   }
 
   return {

@@ -6,4 +6,4 @@ export const fetchWithCookie = async (event: H3Event, url: string, options: obje
   for (const cookie of cookies) {
     appendResponseHeader(event, 'set-cookie', cookie)
   }
-  return res._data
+  return res.data
