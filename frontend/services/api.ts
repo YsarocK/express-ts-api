@@ -68,10 +68,24 @@ const ApiService = (apiEndpoint: string) => {
       })
   }
 
+  const loginAsAdmin = (email: string, password: string) => {
+    return fetch(`${apiEndpoint}/admin/login/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    })
+  }
+
   return {
     verifyExercises,
     register,
-    login
+    login,
+    loginAsAdmin,
   };
 };
 
