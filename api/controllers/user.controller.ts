@@ -5,7 +5,7 @@ import { SessionService } from 'services/session.service';
 import { JWToken } from 'utils';
 import { sendMailNodemailer } from '../utils/nodemailer';
 
-interface FORM {
+interface Form {
   eleve: {
     nom: string,
     prenom: string,
@@ -19,7 +19,7 @@ interface FORM {
 
 export const sendUserMagicLink = async (req: Request, res: Response) => {
   const { session_id } = req.params;
-  const body = req.body as FORM;
+  const body = req.body as Form;
 
   if (!body.eleve.email) {
     return res.status(400).json({ success: false, message: 'Mail is not given' });
@@ -32,8 +32,8 @@ export const sendUserMagicLink = async (req: Request, res: Response) => {
   if(!session) {
     return res.status(400).json({ success: false, message: 'Session does not exist' });
   }
-
   */
+ 
   let user = await UserService.getUser(body.eleve.email);
   
   if (user === false) {
@@ -60,7 +60,7 @@ export const sendUserMagicLink = async (req: Request, res: Response) => {
 };
 
 export const loginUsingMagicLink = async (req: Request, res: Response) => {
-  const token = req.query.token as string;
+  const token = req.query.jwt as string;
 
   if (!token) {
     return res.status(400).json({ success: false, message: 'Token is not given' });
@@ -73,11 +73,11 @@ export const loginUsingMagicLink = async (req: Request, res: Response) => {
     return res.status(498).json({ success: false, message: err });
   }
 
-  console.log(token_decoded);
-
   //add access and renew token to cookies
+  const authTokens = await JWToken.generateAuthTokens(token_decoded.data.userId);
 
-  const authTokens = await JWToken.generateAuthTokens(token_decoded.sub!);
+  //get user
+  //const user = UserService.getUser()
 
   console.log(authTokens);
 
@@ -87,7 +87,8 @@ export const loginUsingMagicLink = async (req: Request, res: Response) => {
   return res.status(200).json({
     success: true,
     data: {
-      user_id: token_decoded.sub
+      user: token_decoded.data.userId,
+      redirect_url: `/${token_decoded.data.sessionId}/verify`
     }
   })
 }
@@ -106,11 +107,11 @@ export const refreshLoginTokens = async (req: Request, res: Response) => {
     return res.status(498).json({ success: false, message: err });
   }
 
-  if (!token_valid.sub) {
+  if (!token_valid.data.userId) {
     return res.status(498).json({ success: false, message: 'No userId in the token' });
   }
 
-  const authTokens = await JWToken.generateAuthTokens(token_valid.sub!);
+  const authTokens = await JWToken.generateAuthTokens(token_valid.data.userId);
 
   console.log(authTokens);
 
