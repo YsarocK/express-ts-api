@@ -1,9 +1,8 @@
-import {Admin} from 'models/admin'
+import {Admin, AdminInterface} from 'models/admin'
 import bcrypt from 'bcrypt'
-import {generateRandomString} from 'utils';
 
 export class AdminService {
-    static async generateAdmin(email: string, password: string): Promise<{ user: object } | false> {
+    static async generateAdmin(email: string, password: string): Promise<AdminInterface | false> {
         if (email === null || password === null) {
             return false;
         }
@@ -11,17 +10,13 @@ export class AdminService {
         const saltRounds = 10;
         const hash = bcrypt.hashSync(password, saltRounds);
 
-        const admin = await Admin.create({
+        return await Admin.create({
             email: email,
             password: hash,
-        });
-
-        return {
-            user: admin,
-        };
+        }) as AdminInterface
     }
 
-    static async getAdmin(email: string, password: string): Promise<{ admin: object } | string | false> {
+    static async getAdmin(email: string, password: string): Promise<AdminInterface | string | false> {
         if (email === null || password === null) {
             return false;
         }
@@ -34,12 +29,12 @@ export class AdminService {
                 email: email,
                 password: hash,
             },
-        });
+        }) as AdminInterface
 
         if (admin === null) {
             return false
         } else {
-            return {admin}
+            return admin
         }
     }
 }
