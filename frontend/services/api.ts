@@ -69,7 +69,7 @@ const ApiService = (apiEndpoint: string) => {
   }
 
   const loginAsAdmin = (email: string, password: string) => {
-    return fetch(`${apiEndpoint}/admin/login/`, {
+    const res = fetch(`${apiEndpoint}/admin/login/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -79,6 +79,22 @@ const ApiService = (apiEndpoint: string) => {
         password: password
       })
     })
+
+    return res
+     .then(async (r) => {
+        const json = await r.json()
+
+        const tokenCookie = useCookie('token');
+        tokenCookie.value = json.data.tokens.access.token;
+
+        const refreshTokenCookie = useCookie('refreshToken')
+        refreshTokenCookie.value = json.data.tokens.refresh.token;
+
+        return json;
+      })
+      .catch((err) => {
+        return err.message
+      })
   }
 
   return {
