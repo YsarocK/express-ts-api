@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-full max-w-2xl flex flex-col gap-10">
     <div class="w-full">
-      <h1 class="text-2xl mb-4 font-bold">NOM DE LA SESSION</h1>
+      <h1 class="text-2xl mb-4 font-bold">{{ store.session.name }}</h1>
       <p class="text-sm text-slate-500">Votre score final est toujours le dernier score enregistré et non le score le plus élevé. Faîtes attention à ne pas impacter les exercices précedents.</p>
     </div>
     <div class="flex gap-4 items-center text-sm text-slate-500">
@@ -12,7 +12,7 @@
     <informations />
     <div>
       <p class="text-md text-slate-500">
-        Score : <span>{{ score || 'calcul...' }} / 20</span>
+        Score : <span>{{ score }} / 20</span>
       </p>
     </div>
     <exercises-list :exercises="exercises" />
@@ -29,6 +29,10 @@ import {storeToRefs} from "pinia";
 const { $api } = useNuxtApp();
 
 const { store } = storeToRefs(useSessionStore())
+
+useHead({
+  titleTemplate: () => store.value ? store.value.session.name : 'Exercices'
+})
 
 const score = ref(0)
 const exercises: Ref<undefined | ApiResponsesTypes.Verify> = ref(undefined);
