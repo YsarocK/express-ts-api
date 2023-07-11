@@ -7,6 +7,8 @@ const ApiService = (apiEndpoint: string) => {
   const { store } = storeToRefs(useSessionStore());
 
   const verifyExercises = async () => {
+    if(!store.value) throw new Error('Store is undefined');
+
     const headers = useRequestHeaders(['cookie']);
     const res = await fetch(`${apiEndpoint}/exercises/verify`, {
       method: 'POST',
@@ -27,7 +29,7 @@ const ApiService = (apiEndpoint: string) => {
       return new Error('Impossible de se connecter au serveur');
     }
 
-    return json.data;
+    return json;
   };
 
   const register = async (sessionId: string, user: FormTypes.Register) => {

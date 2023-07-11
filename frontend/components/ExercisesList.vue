@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-4 w-full">
-    <div class="w-full flex flex-col justify-center items-center bg-slate-50 p-10 rounded-md" v-if="!exercises">
+    <div v-if="exercises.length < 1" class="w-full flex flex-col justify-center items-center bg-slate-50 p-10 rounded-md">
       <p class="text-sm text-slate-400 mb-5">Chargement des exercices...</p>
       <div role="status">
         <svg aria-hidden="true" class="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-400" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -11,9 +11,9 @@
       </div>
     </div>
     <div
-      v-else-if="typeof exercises.tests !== 'string'"
+      v-else
       class="flex items-start gap-4 p-4 w-full rounded-md bg-slate-50"
-      v-for="exercise in exercises.tests"
+      v-for="exercise in exercises"
     >
       <div
         v-if="exercise.passed"
@@ -37,9 +37,6 @@
         <p class="rounded-sm px-3 py-2 bg-blue-50 text-sm leading-normal text-blue-600 col-span-12" v-if="exercise.help && !exercise.passed">{{ exercise.help }}</p>
         <p class="text-sm text-red-400 col-span-12" v-if="exercise.error">{{ exercise.error }}</p>
       </div>
-    </div>
-    <div v-else class="w-full flex flex-col justify-center items-center red p-10 rounded-md">
-      <p class="text-sm text-red-400 mb-5">{{ exercises }}</p>
     </div>
   </div>
 </template>
