@@ -1,12 +1,9 @@
 import { defineStore } from 'pinia'
+import { StoreType} from "../types";
 
 export const useSessionStore = defineStore('session', () => {
-  const session = ref({
-    ssh: {
-      host: '163.172.174.171',
-      username: 'chucknorris'
-    }
-  })
-
-  return { session }
+  const store: Ref<StoreType.Main | undefined> = ref(undefined)
+  return { store }
+}, {
+  persist: true
 })

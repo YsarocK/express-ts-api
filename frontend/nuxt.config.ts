@@ -20,8 +20,12 @@ export default defineNuxtConfig({
     '@unocss/nuxt',
     'nuxt-icons',
     '@pinia/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
   ],
   css: [
     'assets/styles/main.scss',
   ],
+  piniaPersistedstate: {
+    storage: 'localStorage'
+  },
 })

@@ -2,7 +2,7 @@ import bodyParser from 'body-parser';
 import cors, { CorsOptions } from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import { exerciseRouter, userRouter } from 'routes';
+import {adminRouter, exerciseRouter, userRouter} from 'routes';
 import './databases/databaseCreate';
 import cookieParser from 'cookie-parser';
 
@@ -20,6 +20,7 @@ const corsOptions: CorsOptions = {
       callback(new Error('Not allowed by CORS'));
     }
   },
+  credentials: true,
 };
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -29,6 +30,7 @@ app.use(cors(corsOptions));
 
 app.use('/exercises', exerciseRouter);
 app.use('/users', userRouter);
+app.use('/admin', adminRouter);
 
 app.listen(PORT, () => {
   console.log(`\n🚀 Connecting on port\u001b[1;34m http://localhost:${PORT} \u001b[0m\n`);

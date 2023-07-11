@@ -1,5 +1,6 @@
 import {UserSession, UserSessionInterface} from 'models';
 import {sequelize} from "databases";
+import {getAllUsersSessionById} from "../controllers/admin.controller";
 
 export class UserSessionService {
     static async generateUserSession(ssh_ip: string, ssh_user: string, UserId: string, SessionId: string): Promise<UserSessionInterface> {
@@ -13,13 +14,30 @@ export class UserSessionService {
         }) as UserSessionInterface;
     }
 
-    static async updateUserSession(user_id: string, note: string ): Promise<UserSessionInterface | unknown> {
+    static async updateUserSession(user_id: string, note: number ): Promise<UserSessionInterface | unknown> {
         return await UserSession.update({
             note: note,
             nb_try: sequelize.literal('nb_try + 1'),
         }, {
             where: {
                 UserId: user_id
+            }
+        });
+    }
+
+    static async getUserSessionByUserIdAndSessionId(user_id: string, session_id: string ): Promise<UserSessionInterface | unknown> {
+        return await UserSession.findOne({
+            where: {
+                UserId: user_id,
+                SessionId: session_id
+            }
+        });
+    }
+
+    static async getAllUsersSessionById(session_id: string ): Promise<UserSessionInterface | unknown> {
+        return await UserSession.findAll({
+            where: {
+                SessionId: session_id
             }
         });
     }

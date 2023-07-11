@@ -4,6 +4,7 @@ import { UserService } from 'services';
 import { SessionService } from 'services/session.service';
 import { JWToken } from 'utils';
 import { sendMailNodemailer } from '../utils/nodemailer';
+import {UserSessionService} from "../services/usersession.service";
 
 interface Form {
   eleve: {
@@ -27,12 +28,11 @@ export const sendUserMagicLink = async (req: Request, res: Response) => {
 
   console.log(session_id, body.eleve.email);
 
-  /* const session = await SessionService.getSession(session_id);
+  const session = await SessionService.getSessionById(session_id);
 
   if(!session) {
     return res.status(400).json({ success: false, message: 'Session does not exist' });
   }
-  */
 
   let user = await UserService.getUser(body.eleve.email);
   
@@ -40,6 +40,12 @@ export const sendUserMagicLink = async (req: Request, res: Response) => {
     //return res.status(400).json({ success: false, message: 'User not found' });
     //create user
     user = await UserService.generateUser(body.eleve.email, body.eleve.prenom, body.eleve.nom);
+  }
+
+  let userSession = await UserSessionService.getUserSessionByUserIdAndSessionId(user.id, session_id);
+
+  if(!userSession) {
+    userSession = await UserSessionService.generateUserSession(body.ssh.host, body.ssh.username, user.id, session_id);
   }
 
   const mail_token = await JWToken.generateMagicToken(user.id, session_id);
@@ -84,11 +90,18 @@ export const loginUsingMagicLink = async (req: Request, res: Response) => {
   res.cookie('token', authTokens.access.token, { expires: authTokens.access.expires, httpOnly: true, sameSite: 'lax', secure: false });
   res.cookie('refresh-token', authTokens.refresh.token, { expires: authTokens.refresh.expires, httpOnly: true, sameSite: 'lax', secure: false });
 
+  const user_session = await UserSessionService.getUserSessionByUserIdAndSessionId(token_decoded.data.userId, token_decoded.data.sessionId!)
+  const user = await UserService.getUserById(token_decoded.data.userId)
+  const session = await SessionService.getSessionById(token_decoded.data.sessionId!)
+
   return res.status(200).json({
     success: true,
     data: {
-      user: token_decoded.data.userId,
-      redirect_url: `/${token_decoded.data.sessionId}/exercises`
+      user: user,
+      user_session: user_session,
+      session: session,
+      redirect_url: `/${token_decoded.data.sessionId}/exercises`,
+      tokens: authTokens
     }
   })
 }
@@ -119,7 +132,10 @@ export const refreshLoginTokens = async (req: Request, res: Response) => {
   res.cookie('refresh-token', authTokens.refresh.token, { expires: authTokens.refresh.expires, httpOnly: true, sameSite: 'lax', secure: false });
 
   return res.status(200).json({
-    success: true
+    success: true,
+    data: {
+      tokens: authTokens
+    }
   })
 }
 

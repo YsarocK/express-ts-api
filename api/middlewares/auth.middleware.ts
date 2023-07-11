@@ -5,6 +5,8 @@ export const Auth = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const authToken = req.cookies.token;
 
+    console.log(req.cookies.token);
+
     const userDoc = await JWToken.verifyToken(authToken);
 
     if(!userDoc.data || !userDoc.data.userId) {
@@ -25,7 +27,7 @@ export const AuthAdmin = async (req: Request, res: Response, next: NextFunction)
 
     const userDoc = await JWToken.verifyToken(authToken);
 
-    if(!userDoc.data) {
+    if(!userDoc.data || !userDoc.data.userId) {
       new Error('Bad Token delivered');
     }
 

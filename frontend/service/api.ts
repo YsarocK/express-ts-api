@@ -4,18 +4,21 @@ import { useSessionStore } from "../store/session";
 import { UserTypes } from "../types";
 
 const ApiService = (apiEndpoint: string) => {
-  const session = storeToRefs(useSessionStore()).session;
+  const { store } = storeToRefs(useSessionStore());
 
   const verifyExercises = async () => {
+    const headers = useRequestHeaders(['cookie']);
     const res = await fetch(`${apiEndpoint}/exercises/verify`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        ...headers
       },
       body: JSON.stringify({
-        host: session.value.ssh.host,
-        username: session.value.ssh.username,
+        host: store.value.user_session.ssh_ip,
+        username: store.value.user_session.ssh_user,
       }),
+      credentials: 'include'
     });
 
     const json = await res.json();
@@ -38,12 +41,29 @@ const ApiService = (apiEndpoint: string) => {
   }
 
   const login = async (token: string) => {
-    return fetch(`${apiEndpoint}/users/login?jwt=${token}`, {
+    const res = fetch(`${apiEndpoint}/users/login?jwt=${token}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'same-origin'
     });
+
+    return res
+      .then((r: ApiResponsesTypes.Login) => {
+        if (r.success) {
+          const tokenCookie = useCookie('token');
+          tokenCookie.value = r.data.tokens.access.token;
+
+          const refreshTokenCookie = useCookie('refreshToken')
+          refreshTokenCookie.value = r.data.tokens.refresh.token;
+        }
+
+        return r;
+      })
+      .catch((err) => {
+        return err.message
+      })
   }
 
   return {
