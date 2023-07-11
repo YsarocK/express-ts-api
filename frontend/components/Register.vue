@@ -17,9 +17,12 @@
 </template>
 
 <script setup lang="ts">
-const { session } = useRoute().params
+import { UserTypes } from '../types'
 
-const form = ref({
+const { session } = useRoute().params
+const { $api } = useNuxtApp()
+
+const form: Ref<UserTypes.Register> = ref({
   eleve: {
     nom: '',
     prenom: '',
@@ -37,7 +40,6 @@ useHead({
 
 const handleSubmit = (e: Event) => {
   e.preventDefault()
-  console.log(form.value)
-  // Vérifier la connexion SSH et throw une error si ça ne fonctionne pas
+  $api.register(session, form.value)
 }
 </script>
