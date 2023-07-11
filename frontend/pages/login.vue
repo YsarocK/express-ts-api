@@ -18,7 +18,6 @@ const { $api } = useNuxtApp()
 
 onMounted(() => {
   $api.login(token)
-      .then(r => r.json())
       .then(async r => {
         store.value = {
           user: r.data.user,

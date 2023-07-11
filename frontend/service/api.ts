@@ -57,7 +57,7 @@ const ApiService = (apiEndpoint: string) => {
         const refreshTokenCookie = useCookie('refreshToken')
         refreshTokenCookie.value = r.data.tokens.refresh.token;
 
-        return r;
+        return r.json();
       })
       .catch((err) => {
         return err.message
