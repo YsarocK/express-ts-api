@@ -45,7 +45,7 @@ export const sendUserMagicLink = async (req: Request, res: Response) => {
   const mail_token = await JWToken.generateMagicToken(user.id, session_id);
 
   //create link with mail token
-  const link = process.env.FRONT + '/login?jwt=' + mail_token;
+  const link = process.env.FRONT + '/login?jwt=' + encodeURI(mail_token);
 
   //send mail avec le link
   sendMailNodemailer(link, body.eleve.email);
