@@ -5,15 +5,27 @@ import { SessionService } from 'services/session.service';
 import { JWToken } from 'utils';
 import { sendMailNodemailer } from '../utils/nodemailer';
 
+interface FORM {
+  eleve: {
+    nom: string,
+    prenom: string,
+    email: string
+  },
+  ssh: {
+    host: string,
+    username: string
+  }
+}
+
 export const sendUserMagicLink = async (req: Request, res: Response) => {
   const { session_id } = req.params;
-  const mail = req.query.mail as string;
+  const body = req.body as FORM;
 
-  if (!mail) {
+  if (!body.eleve.email) {
     return res.status(400).json({ success: false, message: 'Mail is not given' });
   }
 
-  console.log(session_id, mail);
+  console.log(session_id, body.eleve.email);
 
   /* const session = await SessionService.getSession(session_id);
 
@@ -21,19 +33,22 @@ export const sendUserMagicLink = async (req: Request, res: Response) => {
     return res.status(400).json({ success: false, message: 'Session does not exist' });
   }
 
-  const user = await UserService.getUser(mail);
+  */
+  let user = await UserService.getUser(body.eleve.email);
+  
+  if (user === false) {
+    //return res.status(400).json({ success: false, message: 'User not found' });
+    //create user
+    user = await UserService.generateUser(body.eleve.email, body.eleve.prenom, body.eleve.nom);
+  }
 
-  if (!user) {
-    return res.status(400).json({ success: false, message: 'User not found' });
-  } */
-
-  const mail_token = await JWToken.generateMagicToken(mail);
+  const mail_token = await JWToken.generateMagicToken(user.id, session_id);
 
   //create link with mail token
-  const link = process.env.FRONT + '/users/login?jwt=' + mail_token;
+  const link = process.env.FRONT + '/login?jwt=' + mail_token;
 
   //send mail avec le link
-  sendMailNodemailer(link, mail);
+  sendMailNodemailer(link, body.eleve.email);
 
   return res.status(200).json({
     success: true,
