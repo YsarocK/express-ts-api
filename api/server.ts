@@ -7,6 +7,7 @@ import './databases/databaseCreate';
 import cookieParser from 'cookie-parser';
 import { morganMiddleware } from 'middlewares';
 import { AdminService } from 'services';
+import { DefaultErrorHandler } from 'middlewares/error.middleware';
 
 const app = express();
 
@@ -35,8 +36,10 @@ app.use('/exercises', exerciseRouter);
 app.use('/users', userRouter);
 app.use('/admin', adminRouter);
 
+app.use(DefaultErrorHandler);
+
 app.listen(PORT, async () => {
   console.log(`\n🚀 Connecting on port\u001b[1;34m http://localhost:${PORT} \u001b[0m\n`);
 
-  await AdminService.generateAdmin('paul@gmail.com', 'test');
+  AdminService.generateAdmin(process.env.BASE_ADMIN_MAIL!, process.env.BASE_ADMIN_PASSWORD!).then(res => console.log(res)).catch(err => console.log(err));
 });

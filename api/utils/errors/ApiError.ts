@@ -1,0 +1,18 @@
+import { ErrorCode } from './errorcode';
+import { IApiError } from './IApiError';
+import { StructuredErrors } from './structuredErrors';
+
+export class ApiError extends Error {
+  constructor(public httpCode: ErrorCode, public structuredError: StructuredErrors, public errMessage: string, public errDetails?: any) {
+    super();
+  }
+
+  get json(): IApiError {
+    return {
+      code: this.httpCode,
+      structured: this.structuredError,
+      message: this.errMessage,
+      details: this.errDetails
+    }
+  }
+}
