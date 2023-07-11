@@ -59,35 +59,84 @@ make purify
 - [API](api/README.md)
 - [Frontend](frontend/README.md)
 
-## Project structure
-
-test
+## Structure
 
 ### API
 
-test
+The API is built with [Express](https://expressjs.com/) and [TypeScript](https://www.typescriptlang.org/).
 
-[API Documentation](api/README.md)
+The API structure is the following:
+
+```bash
+api
+├── src
+│   ├── config
+│   ├── controllers
+│   ├── database
+│   ├── middlewares
+│   ├── models
+│   ├── routes
+│   ├── services
+│   ├── types
+│   ├── utils
+```
+
+> Specific documentation for the API can be found [here](api/README.md).
 
 ### Database
 
-#### Diagram
+The database is a [MariaDB](https://mariadb.org/) database and we are using [Sequelize](https://sequelize.org/) as an ORM.
+
+The database diagram is the following:
 
 ![Diagram](diagram.png)
 
-#### Models
-
-test
-
 ### Frontend
 
+The frontend is built with [NuxtJS](https://nuxtjs.org/) and [TypeScript](https://www.typescriptlang.org/).
+
+The frontend structure is the following:
+
+```bash
+frontend
+├── src
+│   ├── assets
+│   ├── components
+│   ├── layouts
+│   ├── pages
+│   ├── plugins
+│   ├── public
+│   ├── services
+│   ├── store
+│   ├── types
+```
+
+> Specific documentation for the frontend can be found [here](frontend/README.md).
+
+## Workflow
+
 test
 
-[Frontend Documentation](frontend/README.md)
+Logger Winston
 
-## Améliorations
+```ts
+Logger.error('This is an error log');
+Logger.warn('This is a warn log');
+Logger.info('This is a info log');
+Logger.http('This is a http log');
+Logger.debug('This is a debug log');
+```
 
-test
+## Improvements
+
+- [ ] Add unit tests for the API
+- [ ] Add end-to-end tests for the frontend
+- [ ] Add a search bar for the admin panel
+- [ ] Add differents exercices that the admin can choose by creating a new session
+- [ ] Add a timer for the session
+- [ ] Add a way to control who is connected to the session and block the access to the session if the user is not in the list
+
+And many more...
 
 ---
 
