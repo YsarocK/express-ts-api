@@ -31,7 +31,7 @@ const { $api } = useNuxtApp();
 const { store } = storeToRefs(useSessionStore())
 
 useHead({
-  titleTemplate: () => store.value ? store.value.session.name : 'Exercices'
+  titleTemplate: () => store.value ? `Exercices - ${store.value.session.name}` : `Exercices`
 })
 
 const score = ref(0)
