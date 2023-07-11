@@ -3,7 +3,7 @@ import { sequelize } from 'databases';
 import { User } from './user'
 import { Session } from './session'
 
-export interface UserSession extends Model{
+export interface UserSessionInterface extends Model{
     id: string;
     note: string;
     nb_try: number;

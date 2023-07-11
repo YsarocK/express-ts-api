@@ -11,7 +11,7 @@ services:
       NODE_ENV: development
     command: npm run dev
     depends_on:
-      express-api-ts-mariadb:
+      mariadb:
         condition: service_healthy
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:3000']
@@ -28,12 +28,12 @@ services:
       - 8080:3000
     command: npm run dev
     depends_on:
-      express-api-ts-mariadb:
+      mariadb:
         condition: service_healthy
 
-  express-api-ts-mariadb:
+  mariadb:
     image: mariadb:10.6
-    container_name: express-api-ts-mariadb
+    container_name: mariadb
     volumes:
       - ._mysql_data_dir/:/var/lib/mysql
     ports:
