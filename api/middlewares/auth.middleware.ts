@@ -10,7 +10,7 @@ export const Auth = async (req: Request, res: Response, next: NextFunction) => {
     const userDoc = await JWToken.verifyToken(authToken);
 
     if(!userDoc.data || !userDoc.data.userId) {
-      new Error('Bad Token delivered');
+      throw new Error('Bad Token delivered');
     }
 
     res.locals.userId = userDoc.data.userId;
@@ -28,11 +28,11 @@ export const AuthAdmin = async (req: Request, res: Response, next: NextFunction)
     const userDoc = await JWToken.verifyToken(authToken);
 
     if(!userDoc.data || !userDoc.data.userId) {
-      new Error('Bad Token delivered');
+      throw new Error('Bad Token delivered');
     }
 
     if(!userDoc.data.isAdmin) {
-      new Error('No admin rights');
+      throw new Error('No admin rights');
     }
 
     res.locals.userId = userDoc.data.userId;
