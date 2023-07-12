@@ -2,8 +2,11 @@ import type { ApiResponsesTypes } from "../types";
 import { storeToRefs } from "pinia";
 import { useSessionStore } from "../store/session";
 import { FormTypes } from "../types";
+import AdminInterceptor from "./utils/AdminInterceptor";
 
 const ApiService = (apiEndpoint: string) => {
+  AdminInterceptor();
+
   const { store } = storeToRefs(useSessionStore());
 
   const verifyExercises = async () => {
@@ -102,21 +105,14 @@ const ApiService = (apiEndpoint: string) => {
         })
     },
     getSession: async (sessionId: string) => {
-      const headers = useRequestHeaders(['cookie']);
-
       const res = await fetch(`${apiEndpoint}/admin/${sessionId}/users_sessions`, {
         method: 'GET',
         headers: {
-          ...headers,
           'Content-Type': 'application/json',
         },
-        credentials: "include"
       })
 
-      if(res.status === 403 || res.status === 500) {
-        return navigateTo('/admin/login')
-      }
-
+      console.log('might be custom : ', res)
       return res.json()
     }
   }
