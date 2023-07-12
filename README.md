@@ -115,7 +115,6 @@ frontend
 
 ## Workflow
 
-test
 
 Logger Winston
 
