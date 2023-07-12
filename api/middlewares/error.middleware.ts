@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { ApiError } from 'utils/errors/apierror';
-import { ErrorCode } from 'utils/errors/errorcode';
+import { ApiError } from 'utils/errors/ApiError';
+import { ErrorCode } from 'utils/errors/ErrorCode';
 
 
 export const DefaultErrorHandler = async (error: any, req: Request, res: Response, next: NextFunction) => {
