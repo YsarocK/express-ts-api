@@ -93,7 +93,7 @@ The database diagram is the following:
 
 ### Frontend
 
-The frontend is built with [NuxtJS](https://nuxtjs.org/) and [TypeScript](https://www.typescriptlang.org/).
+The frontend is built with [Nuxt](https://nuxt.com/) and [TypeScript](https://www.typescriptlang.org/).
 
 The frontend structure is the following:
 
@@ -115,17 +115,17 @@ frontend
 
 ## Workflow
 
-test
+- Connexion admin
+- Création d'une session et envoie du lien aux participants
+- Connexion des participants
+- Envoie d'un magic link pour rejoindre la session
+- Lancement de la session
+- Affichage des exercices
+- Test des exercices
+- Fin de la session
 
-Logger Winston
-
-```ts
-Logger.error('This is an error log');
-Logger.warn('This is a warn log');
-Logger.info('This is a info log');
-Logger.http('This is a http log');
-Logger.debug('This is a debug log');
-```
+- Dans le panel admin, on peut voir les participants connectés et les exercices effectués, ainsi que les notes
+- Un admin peut mettre fin à la session quand il le souhaite
 
 ## Improvements
 
@@ -133,7 +133,7 @@ Logger.debug('This is a debug log');
 - [ ] Add end-to-end tests for the frontend
 - [ ] Add a search bar for the admin panel
 - [ ] Add differents exercices that the admin can choose by creating a new session
-- [ ] Add a timer for the session
+- [ ] Add a timer for the session to stop when the timer expires
 - [ ] Add a way to control who is connected to the session and block the access to the session if the user is not in the list
 
 And many more...
