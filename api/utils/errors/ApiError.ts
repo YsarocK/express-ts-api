@@ -1,6 +1,6 @@
-import { ErrorCode } from './errorcode';
+import { ErrorCode } from './ErrorCode';
 import { IApiError } from './IApiError';
-import { StructuredErrors } from './structuredErrors';
+import { StructuredErrors } from './StructuredErrors';
 
 export class ApiError extends Error {
   constructor(public httpCode: ErrorCode, public structuredError: StructuredErrors, public errMessage: string, public errDetails?: any) {

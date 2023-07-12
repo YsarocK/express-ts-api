@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { JWToken } from 'utils';
-import { ErrorCode } from 'utils/errors/errorcode';
-import { ApiError } from 'utils/errors/apierror';
+import { ErrorCode } from 'utils/errors/ErrorCode';
+import { ApiError } from 'utils/errors/ApiError';
 
 export const Auth = async (req: Request, res: Response, next: NextFunction) => {
   try {
