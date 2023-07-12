@@ -58,9 +58,6 @@ services:
 
   revproxy:
     build: ./nginx
-    depends_on:
-      api:
-        condition: service_healthy
     networks:
       - app-network
     restart: always
@@ -68,9 +65,9 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./nginx/conf/:/etc/nginx/conf.d/:ro
       - ./certbot/www:/var/www/certbot/:ro
       - ./certbot/conf/:/etc/nginx/ssl/:ro
+
   certbot:
     image: certbot/certbot:latest
     volumes:
