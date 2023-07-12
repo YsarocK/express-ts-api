@@ -3,15 +3,12 @@ services:
   api:
     build:
       context: ./api
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     ports:
       - 3000:3000
-    volumes:
-      - ./api/:/app
-      - /app/node_modules
     environment:
-      NODE_ENV: development
-    command: npm run dev
+      NODE_ENV: production
+    command: npm run start
     depends_on:
       mariadb:
         condition: service_healthy
@@ -24,14 +21,10 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
-    volumes:
-      - ./frontend/:/root
-      - /root/node_modules
+      dockerfile: Dockerfile.prod
     ports:
       - 8080:3000
-      - 24678:24678
-    command: npm run dev
+    command: npm run start
     depends_on:
       api:
         condition: service_healthy
@@ -39,8 +32,6 @@ services:
   mariadb:
     image: mariadb:10.6
     container_name: mariadb
-    volumes:
-      - ._mysql_data_dir/:/var/lib/mysql
     ports:
       - 3306:3306
     environment:

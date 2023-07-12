@@ -1,5 +1,5 @@
-import { ErrorCode } from './errorcode';
-import { StructuredErrors } from './structuredErrors';
+import { ErrorCode } from './ErrorCode';
+import { StructuredErrors } from './StructuredErrors';
 
 export interface IApiError {
   code: ErrorCode,
