@@ -1,7 +1,7 @@
 import type { ApiResponsesTypes } from "../types";
+import type { FormTypes } from "../types";
 import { storeToRefs } from "pinia";
 import { useSessionStore } from "../store/session";
-import { FormTypes } from "../types";
 import AdminInterceptor from "./utils/AdminInterceptor";
 
 const ApiService = (apiEndpoint: string) => {
