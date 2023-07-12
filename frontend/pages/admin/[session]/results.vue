@@ -8,5 +8,10 @@
 definePageMeta({
   layout: 'admin',
 })
+
+useHead({
+  title: 'Résultats',
+})
+
 const { session } = useRoute().params as { session: string }
 </script>

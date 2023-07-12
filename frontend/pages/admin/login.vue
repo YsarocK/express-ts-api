@@ -12,6 +12,10 @@
 </template>
 
 <script setup lang="ts">
+useHead({
+  title: 'Connexion',
+})
+
 const { $api } = useNuxtApp()
 
 const form = ref({

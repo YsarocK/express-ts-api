@@ -112,7 +112,43 @@ const ApiService = (apiEndpoint: string) => {
         },
       })
 
-      console.log('might be custom : ', res)
+      return res.json()
+    },
+    getAllSessions: async () => {
+      const res = await fetch(`${apiEndpoint}/admin/get_all_session`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      return res.json()
+    },
+    createSession: async (name: string) => {
+      const res = await fetch(`${apiEndpoint}/admin/create_session`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: name
+        })
+      })
+
+      return res.json()
+    },
+    updateSession: async (sessionId: string, isActive: boolean) => {
+      const res = await fetch(`${apiEndpoint}/admin/update_session`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: sessionId,
+          isActive: isActive
+        })
+      })
+
       return res.json()
     }
   }
