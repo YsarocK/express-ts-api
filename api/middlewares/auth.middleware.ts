@@ -7,8 +7,6 @@ export const Auth = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const authToken = req.cookies.token;
 
-    console.log(req.cookies.token);
-
     const userDoc = await JWToken.verifyToken(authToken);
 
     if (!userDoc.data || !userDoc.data.userId) {

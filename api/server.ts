@@ -3,7 +3,7 @@ import cors, { CorsOptions } from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import { adminRouter, exerciseRouter, userRouter } from 'routes';
-import './databases/databaseCreate';
+import './databases/create.database';
 import cookieParser from 'cookie-parser';
 import { morganMiddleware } from 'middlewares';
 import { DefaultErrorHandler } from 'middlewares/error.middleware';
@@ -34,7 +34,9 @@ app.use(cors(corsOptions));
 app.use('/exercises', exerciseRouter);
 app.use('/users', userRouter);
 app.use('/admin', adminRouter);
-app.use('/', (req, res) => {res.status(200).send()});
+app.use('/', (req, res) => {
+  res.status(200).send();
+});
 
 app.use(DefaultErrorHandler);
 
