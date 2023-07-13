@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const sendMailNodemailer = (message: string, email: string)  => {
+export const sendMailNodemailer = async (message: string, email: string) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -19,11 +19,15 @@ export const sendMailNodemailer = (message: string, email: string)  => {
         text: message,
     };
 
-    transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-            return error
-        } else {
-            return 'Email sent: ' + info.response
-        }
+    await new Promise((resolve, reject) => {
+        transporter.sendMail(mailOptions, (err, info) => {
+            if (err) {
+                console.error(err);
+                reject(err);
+            } else {
+                resolve(info);
+                console.log(info)
+            }
+        });
     });
 };
