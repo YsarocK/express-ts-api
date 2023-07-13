@@ -5,7 +5,7 @@ import { useSessionStore } from "../store/session";
 import AdminInterceptor from "./utils/AdminInterceptor";
 
 const ApiService = (apiEndpoint: string) => {
-  AdminInterceptor();
+  // AdminInterceptor();
 
   const { store } = storeToRefs(useSessionStore());
 
@@ -58,10 +58,14 @@ const ApiService = (apiEndpoint: string) => {
       .then(async (r) => {
         const json: ApiResponsesTypes.Login = await r.json()
 
-        const tokenCookie = useCookie('token');
+        const tokenCookie = useCookie('token', {
+          domain: `${document.location}`,
+        });
         tokenCookie.value = json.data.tokens.access.token;
 
-        const refreshTokenCookie = useCookie('refreshToken')
+        const refreshTokenCookie = useCookie('refreshToken', {
+          domain: `${document.location}`,
+        })
         refreshTokenCookie.value = json.data.tokens.refresh.token;
 
         return json;
@@ -81,7 +85,7 @@ const ApiService = (apiEndpoint: string) => {
         body: JSON.stringify({
           email: email,
           password: password
-        })
+        }),
       })
 
       return res
@@ -115,6 +119,10 @@ const ApiService = (apiEndpoint: string) => {
         credentials: 'include'
       })
 
+      if(res.status === 403 || res.status === 500) {
+        return await navigateTo('/admin/login')
+      }
+
       return res.json()
     },
     getAllSessions: async () => {
@@ -127,6 +135,10 @@ const ApiService = (apiEndpoint: string) => {
         },
         credentials: 'include'
       })
+
+      if(res.status === 403 || res.status === 500) {
+        return await navigateTo('/admin/login')
+      }
 
       return res.json()
     },
@@ -144,6 +156,10 @@ const ApiService = (apiEndpoint: string) => {
         credentials: 'include'
       })
 
+      if(res.status === 403 || res.status === 500) {
+        return await navigateTo('/admin/login')
+      }
+
       return res.json()
     },
     updateSession: async (sessionId: string, isActive: boolean) => {
@@ -160,6 +176,10 @@ const ApiService = (apiEndpoint: string) => {
         }),
         credentials: 'include'
       })
+
+      if(res.status === 403 || res.status === 500) {
+        return await navigateTo('/admin/login')
+      }
 
       return res.json()
     }
