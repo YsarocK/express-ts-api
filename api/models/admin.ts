@@ -1,11 +1,5 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes } from 'sequelize';
 import { sequelize } from 'databases';
-
-export interface AdminInterface extends Model {
-  id: string;
-  email: string;
-  password: string;
-}
 
 export const Admin = sequelize.define('Admin', {
   id: {
