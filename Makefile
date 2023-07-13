@@ -19,4 +19,5 @@ purify:
 
 deploy:
 	sudo git pull origin main
+	sudo docker system prune -a
 	sudo docker-compose -f docker-compose.prod.yml up -d --build
