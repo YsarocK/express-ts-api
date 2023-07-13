@@ -2,9 +2,9 @@ import { ExerciseTypes } from 'types';
 import { NodeSSH } from 'node-ssh';
 
 /**
- Vérifie la présence d'un dossier spécifié, sa taille et la présence d'un sous-dossier avec une taille spécifique via une session SSH.
- @param session - La session SSH utilisée pour la connexion.
- @returns Une promesse résolue avec un objet de type ExerciseTypes indiquant si les vérifications sont correctes.
+  Vérifie la présence d'un dossier spécifié, sa taille et la présence d'un sous-dossier avec une taille spécifique via une session SSH.
+  @param session - La session SSH utilisée pour la connexion.
+  @returns Une promesse résolue avec un objet de type ExerciseTypes indiquant si les vérifications sont correctes.
  */
 export const checkNodeDirectory = async (session: NodeSSH): Promise<ExerciseTypes.Result> => {
   const directoryPath = '/home/chucknorris/';
@@ -27,10 +27,17 @@ export const checkNodeDirectory = async (session: NodeSSH): Promise<ExerciseType
   };
 
   try {
-    const [directoryExistCommand, directorySizeCommand, subdirectorySizeCommand, directoryListingCommand] = await Promise.all([
+    const [
+      directoryExistCommand,
+      directorySizeCommand,
+      subdirectorySizeCommand,
+      directoryListingCommand,
+    ] = await Promise.all([
       session.execCommand(`ls ${directoryPath}`),
       session.execCommand(`du --max-depth=0 ${directoryPath}${expectedDirectoryName}`),
-      session.execCommand(`du --max-depth=0 ${directoryPath}/${expectedDirectoryName}/${expectedSubfileName}`),
+      session.execCommand(
+        `du --max-depth=0 ${directoryPath}/${expectedDirectoryName}/${expectedSubfileName}`,
+      ),
       session.execCommand(`ls ${directoryPath}${expectedDirectoryName}`),
     ]);
 
