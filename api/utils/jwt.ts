@@ -1,9 +1,6 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import dotenv from 'dotenv';
 import { tokenTypes } from 'config/token';
 import moment from 'moment';
-
-dotenv.config();
 
 interface DataPayLoad {
   userId: string;

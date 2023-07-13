@@ -4,10 +4,8 @@ import { AdminService } from 'services';
 
 sequelize
   .sync({ force: false })
-  .then((result) => {
-    AdminService.generateAdmin(process.env.BASE_ADMIN_MAIL!, process.env.BASE_ADMIN_PASSWORD!)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+  .then(() => {
+    AdminService.generateAdmin(process.env.BASE_ADMIN_MAIL!, process.env.BASE_ADMIN_PASSWORD!);
   })
   .catch((err) => {
     console.log(err);

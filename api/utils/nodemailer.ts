@@ -1,7 +1,4 @@
 import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 export const sendMailNodemailer = (message: string, email: string) => {
   const transporter = nodemailer.createTransport({
@@ -19,7 +16,7 @@ export const sendMailNodemailer = (message: string, email: string) => {
     text: message,
   };
 
-  transporter.sendMail(mailOptions, function (error, info) {
+  transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       return error;
     } else {
