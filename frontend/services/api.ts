@@ -59,12 +59,12 @@ const ApiService = (apiEndpoint: string) => {
         const json: ApiResponsesTypes.Login = await r.json()
 
         const tokenCookie = useCookie('token', {
-          domain: `${document.location}`,
+          domain: `${document.location.host}`,
         });
         tokenCookie.value = json.data.tokens.access.token;
 
         const refreshTokenCookie = useCookie('refreshToken', {
-          domain: `${document.location}`,
+          domain: `${document.location.host}`,
         })
         refreshTokenCookie.value = json.data.tokens.refresh.token;
 
@@ -96,10 +96,14 @@ const ApiService = (apiEndpoint: string) => {
             return json.success
           }
 
-          const tokenCookie = useCookie('token');
+          const tokenCookie = useCookie('token',{
+            domain: `${document.location.host}`,
+          });
           tokenCookie.value = json.data.tokens.access.token;
 
-          const refreshTokenCookie = useCookie('refreshToken')
+          const refreshTokenCookie = useCookie('refreshToken',{
+            domain: `${document.location.host}`,
+          })
           refreshTokenCookie.value = json.data.tokens.refresh.token;
 
           return json;
