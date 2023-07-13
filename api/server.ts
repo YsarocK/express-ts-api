@@ -36,12 +36,6 @@ app.use(cors(corsOptions));
 app.use('/exercises', exerciseRouter);
 app.use('/users', userRouter);
 app.use('/admin', adminRouter);
-app.get('/', (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'Welcome to the API',
-  });
-})
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
