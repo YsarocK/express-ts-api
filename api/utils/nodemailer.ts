@@ -11,8 +11,8 @@ export const sendMailNodemailer = async (message: string, email: string) => {
 
   return emailjs
     .send('service_5hqdm9b', 'template_ztvjupo', templateParams, {
-      publicKey: process.env.MAILER_PUBLIC,
-      privateKey: process.env.MAILER_PRIVATE,
+      publicKey: process.env.MAILER_PUBLIC as string,
+      privateKey: process.env.MAILER_PRIVATE as string,
     })
     .then(
       (response) => {
