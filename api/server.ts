@@ -37,6 +37,10 @@ app.use('/exercises', exerciseRouter);
 app.use('/users', userRouter);
 app.use('/admin', adminRouter);
 
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
 app.listen(PORT, async () => {
   logger.info(`Connecting on port http://localhost:${PORT}`);
 });
