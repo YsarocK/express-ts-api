@@ -8,9 +8,10 @@ import cookieParser from 'cookie-parser';
 import { DefaultErrorHandler, morganMiddleware } from 'middlewares';
 import { logger } from 'utils';
 
+dotenv.config();
+
 const app = express();
 
-dotenv.config();
 const PORT = process.env.PORT || 3000;
 
 const whitelist = process.env.CORS?.split(',') || [];
@@ -30,15 +31,11 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(morganMiddleware);
 app.use(cors(corsOptions));
+app.use(DefaultErrorHandler);
 
 app.use('/exercises', exerciseRouter);
 app.use('/users', userRouter);
 app.use('/admin', adminRouter);
-app.use('/', (req, res) => {
-  res.status(200).send();
-});
-
-app.use(DefaultErrorHandler);
 
 app.listen(PORT, async () => {
   logger.info(`Connecting on port http://localhost:${PORT}`);
