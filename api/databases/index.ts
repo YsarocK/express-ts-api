@@ -1,2 +1,2 @@
-export * from './databaseAuth';
-export * from './databaseCreate';
+export * from './auth.database';
+export * from './create.database';
