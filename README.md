@@ -54,6 +54,14 @@ This command will delete everything related to the project, to start again with 
 make purify
 ```
 
+#### Deploy
+
+This command will deploy the project on the server.
+
+```bash
+make deploy
+```
+
 ### Other documentation
 
 - [API](api/README.md)
@@ -115,17 +123,46 @@ frontend
 
 ## Workflow
 
-- Connexion admin
-- Création d'une session et envoie du lien aux participants
-- Connexion des participants
-- Envoie d'un magic link pour rejoindre la session
-- Lancement de la session
-- Affichage des exercices
-- Test des exercices
-- Fin de la session
+### Connection to the admin panel
 
-- Dans le panel admin, on peut voir les participants connectés et les exercices effectués, ainsi que les notes
-- Un admin peut mettre fin à la session quand il le souhaite
+To connect to the admin panel, you need to go to the `/admin` route.
+You will be asked to enter a email and a password.
+
+### Create a session
+
+Once you are connected to the admin panel, you can create a session by clicking on the `Create a session` button.
+
+You will be asked to enter a name for the session and a duration for the session.
+
+Once you have created the session, you will have a link to the session. You can copy this link and send it to the participants.
+
+### Join a session
+
+To join a session, you need to go to the link that the admin sent you.
+You will be asked to enter a name and an email.
+
+Once you have entered your name and email, you will receive an email with a magic link to join the session.
+
+### Do the exercises
+
+Once the session has started, the participants will see the exercises that they need to do, one by one.
+
+### Test the exercises
+
+Once the participants have done the exercises, they can test them by clicking on the `Test` button.
+
+They will see the result of the test and the admin will see the result of the test in the admin panel.
+Which will display the notes of the participants.
+
+### End a session
+
+The admin can end the session at any time by clicking on the `End session` button.
+
+### Admin panel
+
+The admin panel is a dashboard that displays the participants connected to the session and the exercises that they have done. It also displays the notes of the participants.
+
+The admin can also end the session at any time.
 
 ## Improvements
 
