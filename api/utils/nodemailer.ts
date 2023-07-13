@@ -3,14 +3,15 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const sendMailNodemailer = (message: string, email: string) => {
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.NODERMAILER_EMAIL as string,
-      pass: process.env.NODEMAILER_PASSWORD as string,
-    },
-  });
+export const sendMailNodemailer = async (message: string, email: string) => {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.NODERMAILER_EMAIL as string,
+            pass: process.env.NODEMAILER_PASSWORD as string,
+        }
+    });
+
 
   const mailOptions = {
     from: 'pierrekeller75@gmail.com',
@@ -19,11 +20,15 @@ export const sendMailNodemailer = (message: string, email: string) => {
     text: message,
   };
 
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      return error;
-    } else {
-      return 'Email sent: ' + info.response;
-    }
-  });
+    await new Promise((resolve, reject) => {
+        transporter.sendMail(mailOptions, (err, info) => {
+            if (err) {
+                console.error(err);
+                reject(err);
+            } else {
+                resolve(info);
+                console.log(info)
+            }
+        });
+    });
 };
