@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "config": ["config"],
       "controllers": ["controllers"],
       "databases": ["databases"],
       "middlewares": ["middlewares"],
