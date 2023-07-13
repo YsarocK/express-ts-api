@@ -9,14 +9,6 @@ export namespace UserTypes {
     lastname: string;
   }
 
-  // export interface Props {
-  //   email: string;
-  //   ssh: {
-  //     host: string;
-  //   };
-  //   steps: boolean[];
-  // }
-
   export namespace Controller {
     export interface MagicLink {
       eleve: {
