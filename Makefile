@@ -18,4 +18,5 @@ purify:
 	cd frontend && rm -rf ".npm" && rm -rf ".nuxt" && rm -rf "node_modules"
 
 deploy:
-	docker compose -f docker-compose.prod.yml up -d
+	git pull origin main
+	sudo docker-compose -f docker-compose.prod.yml up -d --build

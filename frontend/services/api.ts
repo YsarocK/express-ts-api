@@ -1,7 +1,7 @@
 import type { ApiResponsesTypes } from "../types";
+import type { FormTypes } from "../types";
 import { storeToRefs } from "pinia";
 import { useSessionStore } from "../store/session";
-import { FormTypes } from "../types";
 import AdminInterceptor from "./utils/AdminInterceptor";
 
 const ApiService = (apiEndpoint: string) => {
@@ -105,48 +105,60 @@ const ApiService = (apiEndpoint: string) => {
         })
     },
     getSession: async (sessionId: string) => {
+      const headers = useRequestHeaders(['cookie']);
       const res = await fetch(`${apiEndpoint}/admin/${sessionId}/users_sessions`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          ...headers
         },
+        credentials: 'include'
       })
 
       return res.json()
     },
     getAllSessions: async () => {
+      const headers = useRequestHeaders(['cookie']);
       const res = await fetch(`${apiEndpoint}/admin/get_all_session`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          ...headers
         },
+        credentials: 'include'
       })
 
       return res.json()
     },
     createSession: async (name: string) => {
+      const headers = useRequestHeaders(['cookie']);
       const res = await fetch(`${apiEndpoint}/admin/create_session`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...headers
         },
         body: JSON.stringify({
           name: name
-        })
+        }),
+        credentials: 'include'
       })
 
       return res.json()
     },
     updateSession: async (sessionId: string, isActive: boolean) => {
+      const headers = useRequestHeaders(['cookie']);
       const res = await fetch(`${apiEndpoint}/admin/update_session`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...headers
         },
         body: JSON.stringify({
           id: sessionId,
           isActive: isActive
-        })
+        }),
+        credentials: 'include'
       })
 
       return res.json()
