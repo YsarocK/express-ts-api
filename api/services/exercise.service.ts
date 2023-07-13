@@ -1,8 +1,9 @@
 import { ExerciseTypes } from 'types';
 import { session } from 'utils';
 import { userFolderExist, checkNodeDirectory } from 'utils/exercises';
+import {alias} from "../utils/exercises/alias";
 
-const TESTS_STEPS = [userFolderExist, checkNodeDirectory];
+const TESTS_STEPS = [userFolderExist, checkNodeDirectory, alias];
 
 export const verifyExerciseService = async ({ host, username }: ExerciseTypes.Verify.Props) => {
   const results: Array<ExerciseTypes.Result>  = await session(host, username)
