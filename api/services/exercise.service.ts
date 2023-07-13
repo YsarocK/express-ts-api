@@ -1,7 +1,9 @@
 import { ExerciseTypes } from 'types';
-import { checkNodeDirectory, session, userFolderExist } from 'utils';
+import { session } from 'utils';
+import { userFolderExist, checkNodeDirectory, alias } from 'utils/exercises';
 
-const TESTS_STEPS = [userFolderExist, checkNodeDirectory];
+
+const TESTS_STEPS = [userFolderExist, checkNodeDirectory, alias];
 
 export const verifyExerciseService = async ({
   host,
