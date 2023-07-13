@@ -4,24 +4,30 @@ import { JWToken, sendMailNodemailer } from 'utils';
 import { UserTypes } from 'types';
 
 export const sendUserMagicLink = async (req: Request, res: Response) => {
+
+
   const { session_id } = req.params;
   const body: UserTypes.Controller.MagicLink = req.body;
 
   if (!body.eleve.email) {
+    console.log('user reate', 'Mail is not given');
     return res.status(400).json({ success: false, message: 'Mail is not given' });
   }
 
   const session = await SessionService.getSessionById(session_id);
 
   if (!session) {
+    console.log('user reate', 'Session is not given', session_id, session);
     return res.status(400).json({ success: false, message: 'Session does not exist' });
   }
 
   let user = await UserService.getUser(body.eleve.email);
 
-  if (user === false) {
+  if (!user) {
     user = await UserService.generateUser(body.eleve.email, body.eleve.prenom, body.eleve.nom);
   }
+
+  console.log('user reate', user);
 
   let userSession = await UserSessionService.getUserSessionByUserIdAndSessionId(
     user.id,
@@ -40,6 +46,9 @@ export const sendUserMagicLink = async (req: Request, res: Response) => {
   const mail_token = await JWToken.generateMagicToken(user.id, session_id);
 
   const link = process.env.FRONT + '/login?jwt=' + encodeURI(mail_token);
+
+  console.log('log');
+
   sendMailNodemailer(link, body.eleve.email);
 
   return res.status(200).json({
