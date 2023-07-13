@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { SessionService } from '../services/session.service';
-import { UserSessionService } from '../services/userSession1.service';
+import { UserSessionService } from '../services/userSession.service';
 import { AdminService } from 'services';
 import { JWToken } from 'utils';
 import { AdminTypes } from 'types/admin.types';

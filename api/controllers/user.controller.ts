@@ -3,7 +3,7 @@ import { UserService } from 'services';
 import { SessionService } from 'services/session.service';
 import { JWToken } from 'utils';
 import { sendMailNodemailer } from '../utils/nodemailer';
-import { UserSessionService } from '../services/userSession1.service';
+import { UserSessionService } from '../services/userSession.service';
 import { UserTypes } from 'types';
 
 export const sendUserMagicLink = async (req: Request, res: Response) => {
