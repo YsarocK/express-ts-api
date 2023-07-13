@@ -6,13 +6,13 @@ import moment from 'moment';
 dotenv.config();
 
 interface DataPayLoad {
-  userId: string,
-  sessionId?: string,
-  isAdmin?: boolean
+  userId: string;
+  sessionId?: string;
+  isAdmin?: boolean;
 }
 
 interface PayLoad extends JwtPayload {
-  data: DataPayLoad
+  data: DataPayLoad;
 }
 
 export class JWToken {
@@ -36,15 +36,23 @@ export class JWToken {
         }
         resolve(decoded as PayLoad);
       });
-    })
+    });
   }
 
   static async generateAuthTokens(userId: string, isAdmin?: boolean) {
     const accessTokenExpires = moment().add(process.env.ACCESS_EXPIRATION_HOURS, 'hours');
-    const accessToken = await this.generateToken({ userId: userId, isAdmin }, accessTokenExpires, tokenTypes.ACCESS);
+    const accessToken = await this.generateToken(
+      { userId: userId, isAdmin },
+      accessTokenExpires,
+      tokenTypes.ACCESS,
+    );
 
     const refreshTokenExpires = moment().add(process.env.REFRESH_EXPIRATION_DAYS, 'days');
-    const refreshToken = await this.generateToken({ userId: userId }, refreshTokenExpires, tokenTypes.REFRESH);
+    const refreshToken = await this.generateToken(
+      { userId: userId },
+      refreshTokenExpires,
+      tokenTypes.REFRESH,
+    );
 
     return {
       access: {
@@ -60,7 +68,11 @@ export class JWToken {
 
   static async generateMagicToken(userId: string, sessionId: string) {
     const expires = moment().add(process.env.MAGIC_EXPIRATION_MINUTES, 'minutes');
-    const verifyEmailToken = this.generateToken({userId: userId, sessionId: sessionId}, expires, tokenTypes.VERIFY_MAIL);
+    const verifyEmailToken = this.generateToken(
+      { userId: userId, sessionId: sessionId },
+      expires,
+      tokenTypes.VERIFY_MAIL,
+    );
     return verifyEmailToken;
   }
 }
