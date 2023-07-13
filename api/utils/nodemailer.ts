@@ -15,7 +15,7 @@ export const sendMailNodemailer = async (message: string, email: string) => {
 
 
   const mailOptions = {
-    from: 'pierrekeller75@gmail.com',
+    from: 'etiennemoureton@etik.com',
     to: email,
     subject: 'MT4 - HETIC',
     text: message,
