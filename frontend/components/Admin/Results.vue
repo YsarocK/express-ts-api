@@ -36,6 +36,5 @@ const results: Ref<undefined | Array<any>> = ref(undefined)
 onMounted(async () => {
   const { users_sessions } = await $api.admin.getSession(props.session)
   results.value = users_sessions
-  console.log(results.value)
 })
 </script>
