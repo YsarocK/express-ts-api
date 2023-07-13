@@ -16,6 +16,7 @@ purify:
 	rm -rf "._mysql_data_dir"
 	cd api && rm -rf "build" && rm -rf "node_modules"
 	cd frontend && rm -rf ".npm" && rm -rf ".nuxt" && rm -rf "node_modules"
+	docker system prune -a
 
 deploy:
 	sudo git pull origin main

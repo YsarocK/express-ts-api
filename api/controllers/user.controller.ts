@@ -1,9 +1,6 @@
 import { Request, Response } from 'express';
-import { UserService } from 'services';
-import { SessionService } from 'services/session.service';
-import { JWToken } from 'utils';
-import { sendMailNodemailer } from '../utils/nodemailer';
-import { UserSessionService } from '../services/userSession.service';
+import { SessionService, UserService, UserSessionService } from 'services';
+import { JWToken, sendMailNodemailer } from 'utils';
 import { UserTypes } from 'types';
 
 export const sendUserMagicLink = async (req: Request, res: Response) => {

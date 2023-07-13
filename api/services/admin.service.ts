@@ -1,4 +1,4 @@
-import { Admin } from 'models/admin';
+import { Admin } from 'models';
 import bcrypt from 'bcrypt';
 import { AdminTypes } from 'types';
 
