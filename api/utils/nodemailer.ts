@@ -1,34 +1,25 @@
-import nodemailer from 'nodemailer';
+import emailjs from '@emailjs/nodejs';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 export const sendMailNodemailer = async (message: string, email: string) => {
-  const transporter = nodemailer.createTransport({
-    host: 'mail.infomaniak.com',
-    port: 465,
-    auth: {
-      user: process.env.NODERMAILER_EMAIL as string,
-      pass: process.env.NODEMAILER_PASSWORD as string,
-    },
-  });
-
-  const mailOptions = {
-    from: 'etiennemoureton@etik.com',
-    to: email,
-    subject: 'MT4 - HETIC',
-    text: message,
+  const templateParams = {
+    message: message,
+    to_email: email,
   };
 
-  return await new Promise((resolve, reject) => {
-    return transporter.sendMail(mailOptions, (err, info) => {
-      if (err) {
-        console.error(err);
-        reject(err);
-      } else {
-        console.log(info);
-        resolve(info);
-      }
-    });
-  });
+  return emailjs
+    .send('service_5hqdm9b', 'template_ztvjupo', templateParams, {
+      publicKey: process.env.MAILER_PUBLIC,
+      privateKey: process.env.MAILER_PRIVATE,
+    })
+    .then(
+      (response) => {
+        console.log('SUCCESS!', response.status, response.text);
+      },
+      (err) => {
+        console.log('FAILED...', err);
+      },
+    );
 };
