@@ -1,4 +1,4 @@
-const AdminInterceptor = async () => {
+const AdminInterceptor = () => {
   const { fetch: originalFetch } = window;
 
   window.fetch = async (...args) => {
