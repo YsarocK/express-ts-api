@@ -5,8 +5,7 @@ import express from 'express';
 import { adminRouter, exerciseRouter, userRouter } from 'routes';
 import './databases/create.database';
 import cookieParser from 'cookie-parser';
-import { morganMiddleware } from 'middlewares';
-import { DefaultErrorHandler } from 'middlewares/error.middleware';
+import { DefaultErrorHandler, morganMiddleware } from 'middlewares';
 
 const app = express();
 

@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
-import { verifyExerciseService } from 'services/exercise.service';
-import { UserSessionService } from '../services/userSession.service';
+import { UserSessionService, verifyExerciseService } from 'services';
 import { ExerciseTypes } from 'types';
 
 export const verifyExercise = async (req: Request, res: Response) => {

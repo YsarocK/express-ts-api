@@ -1,6 +1,5 @@
 import { ExerciseTypes } from 'types';
-import { session } from 'utils';
-import { userFolderExist, checkNodeDirectory } from 'utils/exercises';
+import { checkNodeDirectory, session, userFolderExist } from 'utils';
 
 const TESTS_STEPS = [userFolderExist, checkNodeDirectory];
 

@@ -1,9 +1,7 @@
 import { Request, Response } from 'express';
-import { SessionService } from '../services/session.service';
-import { UserSessionService } from '../services/userSession.service';
-import { AdminService } from 'services';
+import { AdminService, SessionService, UserSessionService } from 'services';
 import { JWToken } from 'utils';
-import { AdminTypes } from 'types/admin.types';
+import { AdminTypes } from 'types';
 
 export const createSession = async (req: Request, res: Response) => {
   const { name }: AdminTypes.Controller.Create = req.body;

@@ -1,5 +1,5 @@
 import { sequelize } from './auth.database';
-import '../models';
+import 'models';
 import { AdminService } from 'services';
 
 sequelize
