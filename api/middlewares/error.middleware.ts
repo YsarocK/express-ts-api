@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { ApiError } from 'utils';
 import { ErrorTypes } from 'types';
 
-export const DefaultErrorHandler = async (error: any, req: Request, res: Response) => {
+export const DefaultErrorHandler = async (error: any, res: Response) => {
   let err = new ApiError(
     ErrorTypes.Code.InternalError,
     'auth/missing-email',
@@ -10,7 +10,7 @@ export const DefaultErrorHandler = async (error: any, req: Request, res: Respons
   );
 
   if (!!error) {
-    if (error instanceof ApiError) {
+    if (error) {
       err = error;
     } else if (!!error.sql) {
       err = new ApiError(ErrorTypes.Code.BadRequest, 'sql/failed', error.message, {
@@ -24,5 +24,5 @@ export const DefaultErrorHandler = async (error: any, req: Request, res: Respons
     }
   }
 
-  res.status(err.httpCode || ErrorTypes.Code.InternalError).json(err);
+  res.status(err.httpCode || ErrorTypes.Code.InternalError).json(err.json);
 };

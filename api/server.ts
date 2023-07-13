@@ -31,11 +31,17 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(morganMiddleware);
 app.use(cors(corsOptions));
-app.use(DefaultErrorHandler);
+//app.use(DefaultErrorHandler);
 
 app.use('/exercises', exerciseRouter);
 app.use('/users', userRouter);
 app.use('/admin', adminRouter);
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Welcome to the API',
+  });
+})
 
 app.listen(PORT, async () => {
   logger.info(`Connecting on port http://localhost:${PORT}`);
