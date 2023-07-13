@@ -58,10 +58,14 @@ const ApiService = (apiEndpoint: string) => {
       .then(async (r) => {
         const json: ApiResponsesTypes.Login = await r.json()
 
-        const tokenCookie = useCookie('token');
+        const tokenCookie = useCookie('token', {
+          domain: `${document.location}`,
+        });
         tokenCookie.value = json.data.tokens.access.token;
 
-        const refreshTokenCookie = useCookie('refreshToken')
+        const refreshTokenCookie = useCookie('refreshToken', {
+          domain: `${document.location}`,
+        })
         refreshTokenCookie.value = json.data.tokens.refresh.token;
 
         return json;
