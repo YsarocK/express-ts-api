@@ -10,9 +10,9 @@
         <input v-model="form.eleve.email" type="text" placeholder="Email" class="rounded-md col-span-12 px-5 py-3 bg-slate-50 text-slate-700 outline-none">
 
         <label class="mt-8 col-span-12">SSH</label>
-        <div class="p-4 bg-blue-100 text-blue-500">
-          <p>Creéz un utilisateur "chucknorris" et ajoutez la clé SSH publique suivante :</p>
-          <p class="mt-4">{{ sshPublicKey }}</p>
+        <div class="col-span-12 rounded-md p-4 bg-blue-100 text-blue-500">
+          <p>Créez un utilisateur "chucknorris" et ajoutez la clé SSH publique suivante :</p>
+          <p class="mt-4 opacity-80 text-xs">{{ sshPublicKey }}</p>
         </div>
         <input v-model="form.ssh.host" type="text" placeholder="Hote" class="rounded-md col-span-12 px-5 py-3 bg-slate-50 text-slate-700 outline-none">
         <input v-model="form.ssh.username" type="text" placeholder="Username" class="rounded-md col-span-12 px-5 py-3 bg-slate-50 text-slate-700 outline-none">
@@ -33,7 +33,7 @@ import { storeToRefs } from "pinia";
 
 const { store } = storeToRefs(useSessionStore())
 
-const { sshPublicKey } = useRuntimeConfig()
+const { sshPublicKey } = useRuntimeConfig().public
 
 const { session } = useRoute().params
 const { $api } = useNuxtApp()
