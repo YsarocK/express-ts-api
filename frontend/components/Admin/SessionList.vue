@@ -17,7 +17,7 @@
           <p class="text-xs">{{ session.id }}</p  >
         </div>
         <div class="flex gap-4 mr-0 ml-auto">
-          <p @click="copyLink(session.id)">
+          <p @click="copyLink(session.id)" class="active-scale-90">
             Lien d'inscription
           </p>
           <a target="_blank" :href="`/admin/${session.id}/results`">

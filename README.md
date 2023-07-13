@@ -164,6 +164,12 @@ The admin panel is a dashboard that displays the participants connected to the s
 
 The admin can also end the session at any time.
 
+# Challenge Answers
+
+1. Give access to your machine
+    - Create a user and add the given SSH Public Key
+2. 
+
 ## Improvements
 
 - [ ] Add unit tests for the API
@@ -177,4 +183,4 @@ And many more...
 
 ---
 
-[Sami Lafrance](https://www.samilafrance.com/) | [Paul Cotogno](https://paulcotogno.com/) | [Etienne Moureton](https://www.etiennemoureton.fr/) | [Pierre Keller](https://pierrekeller.com/)
+[Sami Lafrance](https://www.samilafrance.com/) | [Paul Cotogno](https://paulcotogno.com/) | [Etienne Moureton](https://www.etiennemoureton.fr/) | [Pierre Keller](https://pierrekeller.com/) | [Augustin Vincent](https://github.com/AugustinKimi)
