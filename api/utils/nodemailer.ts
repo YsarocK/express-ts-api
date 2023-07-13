@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer'
+import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -12,12 +12,13 @@ export const sendMailNodemailer = async (message: string, email: string) => {
         }
     });
 
-    const mailOptions = {
-        from: 'pierrekeller75@gmail.com',
-        to: email,
-        subject: 'MT4 - HETIC',
-        text: message,
-    };
+
+  const mailOptions = {
+    from: 'pierrekeller75@gmail.com',
+    to: email,
+    subject: 'MT4 - HETIC',
+    text: message,
+  };
 
     await new Promise((resolve, reject) => {
         transporter.sendMail(mailOptions, (err, info) => {

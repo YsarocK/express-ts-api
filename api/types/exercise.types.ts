@@ -12,8 +12,8 @@ export namespace ExerciseTypes {
     help?: string;
   }
 
-  export namespace Verify {
-    export interface Props {
+  export namespace Controller {
+    export interface Verify {
       host: string;
       username: string;
     }

@@ -2,12 +2,14 @@ import { ExerciseTypes } from 'types';
 import { NodeSSH } from 'node-ssh';
 
 /**
-
- Vérifie si un dossier utilisateur existe via une session SSH.
- @param session - La session SSH utilisée pour la connexion.
- @returns Une promesse résolue avec un objet de type ExerciseTypes indiquant si le dossier existe.
+  Vérifie si un dossier utilisateur existe via une session SSH.
+  @param session - La session SSH utilisée pour la connexion.
+  @returns Une promesse résolue avec un objet de type ExerciseTypes indiquant si le dossier existe.
  */
-export const userFolderExist = async (session: NodeSSH, ssh: { host: string, username: string }): Promise<ExerciseTypes.Result> => {
+export const userFolderExist = async (
+  session: NodeSSH,
+  ssh: { host: string; username: string },
+): Promise<ExerciseTypes.Result> => {
   const FOLDER_TO_FIND = ssh.username;
 
   const META: ExerciseTypes.Meta = {
@@ -21,7 +23,7 @@ export const userFolderExist = async (session: NodeSSH, ssh: { host: string, use
   const response: ExerciseTypes.Result = {
     ...META,
     passed: false,
-  }
+  };
 
   try {
     const command = await session.execCommand(`cd /home && ls`);
