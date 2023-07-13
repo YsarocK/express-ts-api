@@ -1,8 +1,9 @@
 import nodemailer from 'nodemailer';
 
-export const sendMailNodemailer = (message: string, email: string) => {
+export const sendMailNodemailer = async (message: string, email: string) => {
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'mail.infomaniak.com',
+    port: 465,
     auth: {
       user: process.env.NODERMAILER_EMAIL as string,
       pass: process.env.NODEMAILER_PASSWORD as string,
@@ -10,17 +11,21 @@ export const sendMailNodemailer = (message: string, email: string) => {
   });
 
   const mailOptions = {
-    from: 'pierrekeller75@gmail.com',
+    from: 'etiennemoureton@etik.com',
     to: email,
     subject: 'MT4 - HETIC',
     text: message,
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      return error;
-    } else {
-      return 'Email sent: ' + info.response;
-    }
+  return await new Promise((resolve, reject) => {
+    return transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+      } else {
+        console.log(info);
+        resolve(info);
+      }
+    });
   });
 };
