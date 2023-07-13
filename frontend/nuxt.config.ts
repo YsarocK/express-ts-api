@@ -6,6 +6,7 @@ export default defineNuxtConfig({
       apiEndpoint: process.env.API_ENDPOINT,
       apiEndpointFront: process.env.API_ENDPOINT_FRONT,
       sshPublicKey: process.env.SSH_PUBLIC_KEY,
+      isProd: process.env.NODE_ENV === 'production',
     }
   },
   modules: [
