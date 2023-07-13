@@ -1,7 +1,5 @@
 import { ErrorTypes } from 'types';
 
-export { ErrorTypes } from 'types';
-
 export class ApiError extends Error {
   constructor(
     public httpCode: ErrorTypes.Code,
