@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { JWToken } from 'utils';
-import { ErrorCode } from 'utils/errors/ErrorCode';
-import { ApiError } from 'utils/apiError';
+import { ApiError, JWToken } from 'utils';
+import { ErrorTypes } from 'types';
 
 export const Auth = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -11,7 +10,7 @@ export const Auth = async (req: Request, res: Response, next: NextFunction) => {
 
     if (!userDoc.data || !userDoc.data.userId) {
       throw new ApiError(
-        ErrorCode.TokenExpired,
+        ErrorTypes.Code.TokenExpired,
         'auth/invalid-access-token',
         'Access token expired. Try renew it with the renew token.',
       );
@@ -33,14 +32,14 @@ export const AuthAdmin = async (req: Request, res: Response, next: NextFunction)
 
     if (!userDoc.data || !userDoc.data.userId) {
       throw new ApiError(
-        ErrorCode.TokenExpired,
+        ErrorTypes.Code.TokenExpired,
         'auth/invalid-access-token',
         'Access token expired. Try renew it with the renew token.',
       );
     }
 
     if (!userDoc.data.isAdmin) {
-      throw new ApiError(ErrorCode.Unauthorized, 'auth/wrong-rights', 'No Admin Rights');
+      throw new ApiError(ErrorTypes.Code.Unauthorized, 'auth/wrong-rights', 'No Admin Rights');
     }
 
     res.locals.userId = userDoc.data.userId;

@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { ApiError } from 'utils/apiError';
-import { ErrorCode } from 'utils/errors/ErrorCode';
+import { ApiError } from 'utils';
+import { ErrorTypes } from 'types';
 
 export const DefaultErrorHandler = async (error: any, req: Request, res: Response) => {
   let err = new ApiError(
-    ErrorCode.InternalError,
+    ErrorTypes.Code.InternalError,
     'auth/missing-email',
     'An unknown internal error occurred',
   );
@@ -13,7 +13,7 @@ export const DefaultErrorHandler = async (error: any, req: Request, res: Respons
     if (error instanceof ApiError) {
       err = error;
     } else if (!!error.sql) {
-      err = new ApiError(ErrorCode.BadRequest, 'sql/failed', error.message, {
+      err = new ApiError(ErrorTypes.Code.BadRequest, 'sql/failed', error.message, {
         sqlState: error.sqlState,
         sqlCode: error.code,
       });
@@ -24,5 +24,5 @@ export const DefaultErrorHandler = async (error: any, req: Request, res: Respons
     }
   }
 
-  res.status(err.httpCode || ErrorCode.InternalError).json(err);
+  res.status(err.httpCode || ErrorTypes.Code.InternalError).json(err);
 };
