@@ -5,7 +5,7 @@ import { useSessionStore } from "../store/session";
 import AdminInterceptor from "./utils/AdminInterceptor";
 
 const ApiService = (apiEndpoint: string) => {
-  AdminInterceptor();
+  // AdminInterceptor();
 
   const { store } = storeToRefs(useSessionStore());
 
@@ -81,7 +81,7 @@ const ApiService = (apiEndpoint: string) => {
         body: JSON.stringify({
           email: email,
           password: password
-        })
+        }),
       })
 
       return res
@@ -115,6 +115,10 @@ const ApiService = (apiEndpoint: string) => {
         credentials: 'include'
       })
 
+      if(res.status === 403 || res.status === 500) {
+        return await navigateTo('/admin/login')
+      }
+
       return res.json()
     },
     getAllSessions: async () => {
@@ -127,6 +131,10 @@ const ApiService = (apiEndpoint: string) => {
         },
         credentials: 'include'
       })
+
+      if(res.status === 403 || res.status === 500) {
+        return await navigateTo('/admin/login')
+      }
 
       return res.json()
     },
@@ -144,6 +152,10 @@ const ApiService = (apiEndpoint: string) => {
         credentials: 'include'
       })
 
+      if(res.status === 403 || res.status === 500) {
+        return await navigateTo('/admin/login')
+      }
+
       return res.json()
     },
     updateSession: async (sessionId: string, isActive: boolean) => {
@@ -160,6 +172,10 @@ const ApiService = (apiEndpoint: string) => {
         }),
         credentials: 'include'
       })
+
+      if(res.status === 403 || res.status === 500) {
+        return await navigateTo('/admin/login')
+      }
 
       return res.json()
     }
