@@ -6,6 +6,7 @@ import { adminRouter, exerciseRouter, userRouter } from 'routes';
 import './databases/create.database';
 import cookieParser from 'cookie-parser';
 import { DefaultErrorHandler, morganMiddleware } from 'middlewares';
+import { logger } from 'utils';
 
 const app = express();
 
@@ -40,5 +41,5 @@ app.use('/', (req, res) => {
 app.use(DefaultErrorHandler);
 
 app.listen(PORT, async () => {
-  console.log(`\n🚀 Connecting on port\u001b[1;34m http://localhost:${PORT} \u001b[0m\n`);
+  logger.info(`Connecting on port http://localhost:${PORT}`);
 });
